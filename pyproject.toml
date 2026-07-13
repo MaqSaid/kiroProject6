@@ -1,0 +1,124 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rag-pipeline"
+version = "0.1.0"
+description = "Production RAG pipeline with hybrid search"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "chromadb>=0.4.0",
+    "rank-bm25>=0.2.2",
+    "openai>=1.6.0",
+    "anthropic>=0.8.0",
+    "instructor>=0.4.0",
+    "sentence-transformers>=2.2.0",
+    "neo4j>=5.14.0",
+    "redis>=5.0.0",
+    "httpx>=0.25.0",
+    "structlog>=23.2.0",
+    "opentelemetry-api>=1.21.0",
+    "opentelemetry-sdk>=1.21.0",
+    "opentelemetry-instrumentation-fastapi>=0.42b0",
+    "opentelemetry-exporter-otlp>=1.21.0",
+    "prometheus-client>=0.19.0",
+    "python-multipart>=0.0.6",
+    "PyMuPDF>=1.23.0",
+    "beautifulsoup4>=4.12.0",
+    "lxml>=4.9.0",
+    "python-jose[cryptography]>=3.3.0",
+    "tenacity>=8.2.0",
+    "strands-agents>=1.45.0",
+    "strands-agents-tools>=0.8.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.1.0",
+    "hypothesis>=6.92.0",
+    "mypy>=1.7.0",
+    "ruff>=0.1.8",
+    "pre-commit>=3.6.0",
+    "schemathesis>=3.21.0",
+    "types-redis>=4.6.0",
+    "types-beautifulsoup4>=4.12.0",
+]
+test = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.1.0",
+    "hypothesis>=6.92.0",
+    "schemathesis>=3.21.0",
+    "pytest-timeout>=2.2.0",
+    "respx>=0.20.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "SIM", "TCH", "RUF"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101"]
+
+[tool.mypy]
+strict = true
+python_version = "3.11"
+plugins = ["pydantic.mypy"]
+exclude = ["tests/", "frontend/"]
+
+[[tool.mypy.overrides]]
+module = [
+    "chromadb.*",
+    "rank_bm25.*",
+    "instructor.*",
+    "sentence_transformers.*",
+    "neo4j.*",
+    "fitz.*",
+    "bs4.*",
+]
+ignore_missing_imports = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+    "unit: Unit tests (fast, no external deps)",
+    "property: Property-based tests using Hypothesis",
+    "integration: Integration tests (require external services)",
+    "slow: Tests that take a long time to run",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*", "src/__pycache__/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+fail_under = 70

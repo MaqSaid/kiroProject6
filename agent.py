@@ -18,7 +18,7 @@ Usage:
 """
 
 from strands import Agent
-from strands_tools import calculator, python_repl, http_request
+from strands_tools import calculator, http_request, python_repl
 
 # --- Choose your model provider (uncomment one) ---
 

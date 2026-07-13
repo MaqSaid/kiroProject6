@@ -1,0 +1,6 @@
+from typing import Protocol
+
+
+class EmbeddingPort(Protocol):
+    async def embed(self, texts: list[str]) -> list[list[float]]: ...
+    async def embed_single(self, text: str) -> list[float]: ...

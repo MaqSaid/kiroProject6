@@ -1,0 +1,78 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - RAG_AGENT_REGION=us-east-1
+      - RAG_AGENT_TIER=lite
+      - RAG_AGENT_TEMPERATURE=0.1
+      - RAG_AGENT_MAX_TOKENS=4096
+      - CHROMADB_HOST=chromadb
+      - CHROMADB_PORT=8000
+      - NEO4J_URI=bolt://neo4j:7687
+      - REDIS_URL=redis://redis:6379
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=us-east-1
+    volumes:
+      - doc_data:/app/data/documents
+    depends_on:
+      chromadb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; r=httpx.get('http://localhost:8080/health',timeout=5); assert r.status_code==200"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  chromadb:
+    image: chromadb/chroma:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - ANONYMIZED_TELEMETRY=false
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  neo4j:
+    image: neo4j:5-community
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      - NEO4J_AUTH=neo4j/password123
+      - NEO4J_PLUGINS=["apoc"]
+    volumes:
+      - neo4j_data:/data
+    healthcheck:
+      test: ["CMD", "neo4j", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  doc_data:
+  chroma_data:
+  neo4j_data:
+  redis_data:

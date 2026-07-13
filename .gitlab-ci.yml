@@ -1,0 +1,99 @@
+stages:
+  - lint
+  - test
+  - security-scan
+  - build
+  - deploy-dev
+  - integration-test
+  - deploy-prod
+
+variables:
+  PYTHON_IMAGE: python:3.11-slim
+  AWS_REGION: us-east-1
+
+lint:
+  stage: lint
+  image: $PYTHON_IMAGE
+  script:
+    - pip install ruff mypy
+    - ruff check src/ --config pyproject.toml
+    - mypy src/ --config-file pyproject.toml || true
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+
+test:unit:
+  stage: test
+  image: $PYTHON_IMAGE
+  script:
+    - pip install -e ".[test]"
+    - pytest tests/property/ tests/unit/ -v --tb=short --junitxml=report.xml
+  artifacts:
+    reports:
+      junit: report.xml
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_BRANCH == "main"
+
+sast:
+  stage: security-scan
+  image: $PYTHON_IMAGE
+  script:
+    - pip install bandit
+    - bandit -r src/ -f json -o bandit-report.json || true
+  artifacts:
+    paths: [bandit-report.json]
+
+dependency-scan:
+  stage: security-scan
+  image: $PYTHON_IMAGE
+  script:
+    - pip install pip-audit
+    - pip-audit --format json --output audit-report.json || true
+  artifacts:
+    paths: [audit-report.json]
+
+build:docker:
+  stage: build
+  image: docker:24-dind
+  services: [docker:24-dind]
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:latest
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+deploy:dev:
+  stage: deploy-dev
+  image: hashicorp/terraform:1.5
+  script:
+    - cd infrastructure/environments/dev
+    - terraform init
+    - terraform plan -out=plan.tfplan
+    - terraform apply -auto-approve plan.tfplan
+  environment: { name: dev }
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+test:integration:
+  stage: integration-test
+  image: $PYTHON_IMAGE
+  script:
+    - pip install -e ".[test]"
+    - pytest tests/integration/ -v -m integration || true
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+deploy:prod:
+  stage: deploy-prod
+  image: hashicorp/terraform:1.5
+  script:
+    - cd infrastructure/environments/prod
+    - terraform init
+    - terraform plan -out=plan.tfplan
+    - terraform apply -auto-approve plan.tfplan
+  environment: { name: production }
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"

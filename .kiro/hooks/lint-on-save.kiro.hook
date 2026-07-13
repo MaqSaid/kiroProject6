@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Lint Python on Save",
+  "description": "Runs ruff check on saved Python files to catch lint issues immediately",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*.py"
+    ]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "python -m ruff check --config pyproject.toml --select E,F,B,W,N,UP,SIM,RUF --ignore E501 {file}"
+  }
+}

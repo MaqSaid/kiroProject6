@@ -1,0 +1,9 @@
+from typing import Protocol
+
+from src.domain.models.entities import Chunk, ScoredChunk
+
+
+class SparseIndexPort(Protocol):
+    async def index(self, chunks: list[Chunk]) -> None: ...
+    async def search(self, query: str, top_k: int) -> list[ScoredChunk]: ...
+    async def delete_by_document(self, document_id: str) -> None: ...

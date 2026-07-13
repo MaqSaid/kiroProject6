@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Architecture Check",
+  "description": "Verify that domain layer files don't import from infrastructure, enforcing hexagonal architecture boundaries",
+  "version": "1",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": [
+      "write"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Before writing this file, verify: If the file is in src/domain/, ensure it does NOT import from src/infrastructure/ or src/api/. Domain files may only import from src/ports/, src/domain/, and stdlib. If the write violates this rule, reject it and suggest the correct import pattern using a port interface instead."
+  }
+}
