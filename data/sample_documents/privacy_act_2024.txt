@@ -1,0 +1,211 @@
+PRIVACY ACT 2024
+
+No. 15 of 2024
+
+An Act to protect the privacy of individuals with respect to their
+personal information, to regulate the collection, use, and disclosure
+of personal information, and for related purposes.
+
+The Parliament of Australia enacts:
+
+PART 1 — PRELIMINARY
+
+Section 1 — Short title
+    This Act may be cited as the Privacy Act 2024.
+
+Section 2 — Commencement
+    This Act commences on the day after Royal Assent.
+
+Section 3 — Objects
+    The objects of this Act are—
+    (a) to promote the protection of the privacy of individuals; and
+    (b) to provide the basis for nationally consistent regulation of
+        privacy and the handling of personal information; and
+    (c) to promote responsible and transparent handling of personal
+        information; and
+    (d) to facilitate the free flow of information across national
+        borders while ensuring that the privacy of individuals is
+        respected; and
+    (e) to provide a framework for the protection of children's
+        personal information online.
+
+Section 4 — Definitions
+    In this Act—
+    "APP" means an Australian Privacy Principle set out in Schedule 1;
+    "APP entity" means an agency or organisation;
+    "data breach" has the meaning given by section 26;
+    "eligible data breach" has the meaning given by section 27;
+    "overseas recipient" means a person who receives personal information
+        and is not in Australia or an external Territory;
+    "personal information" means information or an opinion about an
+        identified individual, or an individual who is reasonably
+        identifiable, whether the information or opinion is true or not;
+    "sensitive information" means personal information about an
+        individual's racial or ethnic origin, political opinions, religious
+        beliefs, sexual orientation, criminal record, health information,
+        genetic information, or biometric information.
+
+PART 2 — AUSTRALIAN PRIVACY PRINCIPLES
+
+Division 1 — Collection of Personal Information
+
+Section 5 — APP 1: Open and transparent management
+    An APP entity must take reasonable steps to implement practices,
+    procedures, and systems that ensure compliance with the APPs and
+    any registered APP code that binds the entity.
+
+Section 6 — APP 3: Collection of solicited personal information
+    (1) An APP entity must not collect personal information unless the
+        information is reasonably necessary for one or more of the
+        entity's functions or activities.
+    (2) An APP entity must collect sensitive information only if—
+        (a) the individual consents to the collection; and
+        (b) the information is reasonably necessary for the entity's
+            functions or activities.
+    (3) Cross-reference: for notification requirements on collection,
+        see section 7 (APP 5).
+
+Section 7 — APP 5: Notification of collection
+    (1) At or before the time an APP entity collects personal information,
+        the entity must notify the individual of—
+        (a) the identity and contact details of the entity;
+        (b) the purposes of collection;
+        (c) the consequences if information is not collected;
+        (d) any other entities to which information may be disclosed;
+        (e) the entity's privacy policy and how to access it.
+    (2) The notification must be provided in a clear, current,
+        understandable, and accessible form.
+
+Division 2 — Use and Disclosure
+
+Section 8 — APP 6: Use or disclosure of personal information
+    (1) An APP entity may use or disclose personal information only for
+        the primary purpose for which it was collected.
+    (2) An APP entity may use or disclose personal information for a
+        secondary purpose if—
+        (a) the individual has consented; or
+        (b) the individual would reasonably expect the use or disclosure; or
+        (c) it is required or authorised by law.
+
+Section 9 — APP 7: Direct marketing
+    (1) An APP entity must not use personal information for direct
+        marketing unless—
+        (a) the individual has consented; or
+        (b) it is impracticable to obtain consent and the individual has
+            not requested to opt out.
+    (2) An individual may opt out of direct marketing at any time.
+
+Division 3 — Cross-border Disclosure
+
+Section 10 — APP 8: Cross-border disclosure of personal information
+    (1) Before disclosing personal information to an overseas recipient,
+        an APP entity must take reasonable steps to ensure that the
+        recipient does not breach the APPs.
+    (2) An APP entity is not required to comply with subsection (1) if—
+        (a) the entity reasonably believes the recipient is subject to a
+            law or binding scheme that is substantially similar to the
+            APPs; or
+        (b) the individual has consented after being expressly informed
+            that subsection (1) will not apply; or
+        (c) the disclosure is required by Australian law.
+    (3) An APP entity that discloses personal information under
+        subsection (1) is accountable for any breach by the overseas
+        recipient as if the breach were committed by the entity itself.
+    (4) Cross-reference: for cross-border enforcement cooperation, see
+        Part 5 of this Act.
+
+Section 11 — Prescribed countries
+    The Minister may, by legislative instrument, prescribe countries that
+    have privacy protections substantially similar to the APPs for the
+    purposes of section 10(2)(a).
+
+PART 3 — NOTIFIABLE DATA BREACHES
+
+Section 12 — Application of this Part
+    This Part applies to an APP entity that holds personal information.
+
+Section 13 — Meaning of data breach
+    A data breach occurs when—
+    (a) there is unauthorised access to personal information held by
+        an entity; or
+    (b) there is unauthorised disclosure of personal information held by
+        an entity; or
+    (c) personal information held by an entity is lost in circumstances
+        where unauthorised access or disclosure is likely.
+
+Section 14 — Meaning of eligible data breach
+    (1) A data breach is an eligible data breach if a reasonable person
+        would conclude that the breach is likely to result in serious
+        harm to any of the individuals to whom the information relates.
+    (2) In assessing serious harm, regard must be had to—
+        (a) the kind of information involved;
+        (b) the sensitivity of the information;
+        (c) whether the information is protected by security measures;
+        (d) the nature of the harm that may result.
+
+Section 15 — Duty to notify Commissioner
+    (1) If an APP entity has reasonable grounds to believe that an
+        eligible data breach has occurred, the entity must notify the
+        Information Commissioner as soon as practicable and in any
+        case within 72 hours of becoming aware.
+    (2) The notification must include—
+        (a) a description of the breach;
+        (b) the kind of information involved;
+        (c) steps taken to contain the breach.
+    (3) Penalty: 2,500 penalty units for a body corporate;
+        500 penalty units for an individual.
+
+Section 16 — Duty to notify affected individuals
+    (1) If an entity notifies the Commissioner under section 15, the
+        entity must also notify each affected individual.
+    (2) The notification must include—
+        (a) a description of the breach;
+        (b) recommendations about steps the individual should take.
+    (3) Cross-reference: see section 14 for the test of serious harm.
+
+PART 4 — ENFORCEMENT
+
+Section 17 — Civil penalty provisions
+    (1) A serious or repeated interference with the privacy of an
+        individual is a civil penalty provision.
+    (2) Maximum penalty—
+        (a) for a body corporate—the greater of:
+            (i) 50,000 penalty units; or
+            (ii) 3 times the benefit obtained from the contravention; or
+            (iii) 30% of adjusted turnover during the breach period;
+        (b) for an individual—2,500 penalty units.
+
+Section 18 — Commissioner's powers
+    The Information Commissioner may—
+    (a) conduct investigations into breaches of the APPs;
+    (b) accept enforceable undertakings;
+    (c) seek civil penalties through the Federal Court;
+    (d) issue infringement notices.
+
+PART 5 — MISCELLANEOUS
+
+Section 19 — Interaction with State and Territory laws
+    This Act is not intended to exclude or limit the operation of a
+    law of a State or Territory that is capable of operating
+    concurrently with this Act.
+
+Section 20 — Regulations
+    The Governor-General may make regulations prescribing matters
+    required or permitted by this Act to be prescribed.
+
+______________
+SCHEDULE 1 — AUSTRALIAN PRIVACY PRINCIPLES (Summary)
+
+APP 1  — Open and transparent management of personal information
+APP 2  — Anonymity and pseudonymity
+APP 3  — Collection of solicited personal information
+APP 4  — Dealing with unsolicited personal information
+APP 5  — Notification of the collection of personal information
+APP 6  — Use or disclosure of personal information
+APP 7  — Direct marketing
+APP 8  — Cross-border disclosure of personal information
+APP 9  — Adoption, use or disclosure of government related identifiers
+APP 10 — Quality of personal information
+APP 11 — Security of personal information
+APP 12 — Access to personal information
+APP 13 — Correction of personal information

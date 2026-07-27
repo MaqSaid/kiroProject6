@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "rag-pipeline"
+name = "legislation-rag-platform"
 version = "0.1.0"
-description = "Production RAG pipeline with hybrid search"
+description = "Legislation RAG Platform - Microservices Architecture"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.104.0",
@@ -63,6 +63,15 @@ test = [
 [tool.hatch.build.targets.wheel]
 packages = ["src"]
 
+# Workspace configuration for monorepo
+# Each service and lib is an independent package installed in editable mode.
+# Install with: pip install -e libs/domain-models -e libs/service-client -e services/<name>
+[tool.hatch.envs.default]
+dependencies = [
+    "legislation-rag-domain-models @ {root:uri}/libs/domain-models",
+    "legislation-rag-service-client @ {root:uri}/libs/service-client",
+]
+
 [tool.ruff]
 line-length = 100
 target-version = "py311"
@@ -72,16 +81,17 @@ select = ["E", "F", "I", "N", "W", "UP", "B", "SIM", "TCH", "RUF"]
 ignore = ["E501"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["src"]
+known-first-party = ["src", "domain_models", "service_client"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["S101"]
+"services/**/tests/**/*.py" = ["S101"]
 
 [tool.mypy]
 strict = true
 python_version = "3.11"
 plugins = ["pydantic.mypy"]
-exclude = ["tests/", "frontend/"]
+exclude = ["tests/", "frontend/", "node_modules/"]
 
 [[tool.mypy.overrides]]
 module = [
@@ -92,6 +102,8 @@ module = [
     "neo4j.*",
     "fitz.*",
     "bs4.*",
+    "fastapi_guard.*",
+    "secure.*",
 ]
 ignore_missing_imports = true
 
@@ -101,12 +113,14 @@ init_typed = true
 warn_required_dynamic_aliases = true
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["tests", "services", "libs"]
 asyncio_mode = "auto"
 markers = [
     "unit: Unit tests (fast, no external deps)",
     "property: Property-based tests using Hypothesis",
     "integration: Integration tests (require external services)",
+    "e2e: End-to-end tests (require all services running)",
+    "contract: Contract tests between services",
     "slow: Tests that take a long time to run",
 ]
 filterwarnings = [
@@ -115,8 +129,8 @@ filterwarnings = [
 addopts = "-v --tb=short"
 
 [tool.coverage.run]
-source = ["src"]
-omit = ["tests/*", "src/__pycache__/*"]
+source = ["src", "services", "libs"]
+omit = ["tests/*", "*/__pycache__/*", "*/tests/*"]
 
 [tool.coverage.report]
 show_missing = true

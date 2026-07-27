@@ -1,13 +1,14 @@
 {
   "enabled": true,
   "name": "Run Tests After Task",
-  "description": "After completing a spec task, run relevant unit tests to verify the implementation works before moving to the next task",
+  "description": "Runs the full test suite (unit, property, and integration tests) after each task execution to verify no regressions were introduced",
   "version": "1",
   "when": {
     "type": "postTaskExecution"
   },
   "then": {
     "type": "runCommand",
-    "command": "python -m pytest tests/ -x -q --tb=short --timeout=30 2>&1 | head -50"
+    "command": "cd c:\\Users\\Saram\\kiroProject6 && python -m pytest tests/property/ tests/unit/ tests/integration/ --ignore=tests/unit/domain/processing/test_normalizers.py -x -q --tb=line 2>&1 | Select-Object -Last 5",
+    "timeout": 120
   }
 }

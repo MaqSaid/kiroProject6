@@ -69,12 +69,21 @@ inclusion: auto
 ## React Frontend
 
 ### Style
-- React 18 + TypeScript strict mode (no `any`)
-- Tailwind CSS for styling (no inline styles, no CSS modules)
+- React 19 + TypeScript strict mode (no `any`)
+- TailwindCSS for styling (no inline styles, no CSS modules)
 - ESLint with `eslint-plugin-jsx-a11y` for accessibility
 - Functional components only, no class components
 - Custom hooks for shared logic (prefix with `use`)
 - React Query (`@tanstack/react-query`) for server state management
+
+### React 19 Patterns
+- Use `use()` hook for data fetching with Suspense (replaces useEffect + useState loading patterns)
+- Use `useActionState` for form submissions and mutations (replaces manual state management)
+- Use `useOptimistic` for instant UI feedback before server confirmation
+- Use `useFormStatus` for loading/pending states in submit buttons
+- Use `ref` as a regular prop (no `forwardRef` needed)
+- Wrap async components in `<Suspense fallback={...}>` boundaries
+- Prefer server-compatible patterns: actions over event handlers for mutations
 
 ### Accessibility (WCAG 2.0 AA)
 - Semantic HTML elements with ARIA where native semantics insufficient
@@ -89,6 +98,8 @@ inclusion: auto
 - Props interfaces defined separately from component (exported for testing)
 - Loading/error/empty states handled in every data-fetching component
 - Use Suspense boundaries for async component loading
+- Prefer `useActionState` over `useState` + `useEffect` for form handling
+- Components receive `ref` as a regular prop — do not use `forwardRef`
 
 ## Infrastructure (Terraform)
 

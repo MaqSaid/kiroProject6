@@ -1,0 +1,515 @@
+openapi: 3.1.0
+info:
+  title: Graph Service API
+  description: |
+    Internal Graph Service wrapping Neo4j operations exclusively.
+    Exposes entity, relationship, traversal, and deletion endpoints.
+    No other service connects to Neo4j directly.
+  version: 1.0.0
+  contact:
+    name: Platform Team
+
+servers:
+  - url: http://graph-service:8000
+    description: Docker Compose internal
+
+paths:
+  /entities:
+    post:
+      operationId: storeEntities
+      summary: Batch store entities
+      description: |
+        Persists a list of ExtractedEntity objects as nodes in Neo4j.
+        Uses entity id as the merge key for idempotent upserts.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoreEntitiesRequest'
+            example:
+              entities:
+                - id: "entity-001"
+                  name: "Transport Infrastructure Act 2024"
+                  entity_type: "Act"
+                  description: "Primary legislation governing transport infrastructure"
+                  source_chunk_id: "chunk-abc-001"
+                  properties:
+                    year: 2024
+                    jurisdiction: "Federal"
+      responses:
+        '201':
+          description: Entities stored successfully
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stored_count:
+                    type: integer
+                    description: Number of entities stored
+                example:
+                  stored_count: 1
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/DependencyUnavailable'
+
+  /relationships:
+    post:
+      operationId: storeRelationships
+      summary: Batch store relationships
+      description: |
+        Persists a list of ExtractedRelationship objects as edges in Neo4j.
+        Uses relationship id as merge key to prevent duplicates.
+        Skips relationships where source or target entity does not exist.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoreRelationshipsRequest'
+            example:
+              relationships:
+                - id: "rel-001"
+                  source_entity_id: "entity-001"
+                  target_entity_id: "entity-002"
+                  relationship_type: "CONTAINS"
+                  description: "Act contains section"
+                  properties: {}
+      responses:
+        '201':
+          description: Relationships stored successfully
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stored_count:
+                    type: integer
+                    description: Number of relationships stored
+                  skipped_count:
+                    type: integer
+                    description: Number of relationships skipped due to missing endpoints
+                example:
+                  stored_count: 1
+                  skipped_count: 0
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/DependencyUnavailable'
+
+  /traverse:
+    post:
+      operationId: traverseGraph
+      summary: Execute graph traversal query
+      description: |
+        Executes a Cypher variable-length path traversal up to max_hops hops (capped at 5).
+        Returns matching nodes scored by 1.0 / (1 + hop_distance).
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraverseRequest'
+            example:
+              query: "Transport Infrastructure Act"
+              max_hops: 2
+      responses:
+        '200':
+          description: Traversal results
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraverseResponse'
+              example:
+                results:
+                  - chunk_id: "chunk-abc-001"
+                    document_id: "doc-001"
+                    text: "Section 45 of the Transport Infrastructure Act..."
+                    section_heading: "Section 45 - Road Standards"
+                    score: 0.5
+                    retrieval_method: "graph"
+                    metadata: {}
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/DependencyUnavailable'
+
+  /documents/{document_id}:
+    delete:
+      operationId: deleteDocumentEntities
+      summary: Delete all entities and relationships for a document
+      description: |
+        Removes all nodes whose source_chunk_id belongs to a chunk with the given document_id,
+        and removes all relationships connected to those deleted nodes, within a single transaction.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The document ID whose entities should be deleted
+          example: "doc-001"
+      responses:
+        '200':
+          description: Document entities deleted successfully
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deleted_nodes:
+                    type: integer
+                  deleted_relationships:
+                    type: integer
+                example:
+                  deleted_nodes: 12
+                  deleted_relationships: 8
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/DependencyUnavailable'
+
+  /health:
+    get:
+      operationId: healthCheck
+      summary: Neo4j connectivity check
+      description: Basic health check verifying Neo4j is reachable
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "healthy"
+                service: "graph-service"
+        '503':
+          description: Service is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "unhealthy"
+                service: "graph-service"
+
+  /health/ready:
+    get:
+      operationId: readinessCheck
+      summary: Readiness probe
+      description: Verifies Neo4j connection pool is established and indexes exist
+      responses:
+        '200':
+          description: Service is ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "ready"
+                service: "graph-service"
+        '503':
+          description: Service is not ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "not_ready"
+                service: "graph-service"
+
+  /health/live:
+    get:
+      operationId: livenessCheck
+      summary: Liveness probe
+      description: Returns HTTP 200 if the process is running (always succeeds)
+      responses:
+        '200':
+          description: Process is alive
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "alive"
+                service: "graph-service"
+
+  /metrics:
+    get:
+      operationId: getMetrics
+      summary: Prometheus metrics endpoint
+      description: Returns Prometheus-compatible metrics for scraping
+      responses:
+        '200':
+          description: Metrics in Prometheus exposition format
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |
+                # HELP rag_graph_store_operations_total Total graph store operations
+                # TYPE rag_graph_store_operations_total counter
+                rag_graph_store_operations_total{operation="store_entities"} 42
+                rag_graph_store_operations_total{operation="traverse"} 156
+
+components:
+  parameters:
+    CorrelationId:
+      name: X-Correlation-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: Correlation ID for distributed tracing
+
+  headers:
+    CorrelationId:
+      schema:
+        type: string
+        format: uuid
+      description: Correlation ID echoed back for tracing
+
+  schemas:
+    StoreEntitiesRequest:
+      type: object
+      required:
+        - entities
+      properties:
+        entities:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractedEntity'
+
+    StoreRelationshipsRequest:
+      type: object
+      required:
+        - relationships
+      properties:
+        relationships:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractedRelationship'
+
+    TraverseRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: Query text for graph traversal
+        max_hops:
+          type: integer
+          minimum: 1
+          maximum: 5
+          default: 2
+          description: Maximum number of hops in traversal (capped at 5)
+
+    TraverseResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScoredChunk'
+
+    ExtractedEntity:
+      type: object
+      required:
+        - id
+        - name
+        - entity_type
+        - description
+        - source_chunk_id
+      properties:
+        id:
+          type: string
+          description: Unique entity identifier (merge key)
+        name:
+          type: string
+          description: Entity display name
+        entity_type:
+          $ref: '#/components/schemas/LegalEntityType'
+        description:
+          type: string
+          description: Entity description
+        source_chunk_id:
+          type: string
+          description: ID of the source chunk this entity was extracted from
+        properties:
+          type: object
+          additionalProperties: true
+          default: {}
+          description: Additional entity properties
+
+    ExtractedRelationship:
+      type: object
+      required:
+        - id
+        - source_entity_id
+        - target_entity_id
+        - relationship_type
+        - description
+      properties:
+        id:
+          type: string
+          description: Unique relationship identifier (merge key)
+        source_entity_id:
+          type: string
+          description: ID of the source entity node
+        target_entity_id:
+          type: string
+          description: ID of the target entity node
+        relationship_type:
+          $ref: '#/components/schemas/LegalRelationshipType'
+        description:
+          type: string
+          description: Relationship description
+        properties:
+          type: object
+          additionalProperties: true
+          default: {}
+          description: Additional relationship properties
+
+    ScoredChunk:
+      type: object
+      required:
+        - chunk_id
+        - document_id
+        - text
+        - section_heading
+        - score
+        - retrieval_method
+      properties:
+        chunk_id:
+          type: string
+        document_id:
+          type: string
+        text:
+          type: string
+        section_heading:
+          type: string
+        score:
+          type: number
+          format: float
+          description: "Score = 1.0 / (1 + hop_distance)"
+        retrieval_method:
+          type: string
+          enum:
+            - graph
+        metadata:
+          type: object
+          additionalProperties: true
+          default: {}
+
+    LegalEntityType:
+      type: string
+      enum:
+        - Act
+        - Section
+        - Regulation
+        - Definition
+        - Obligation
+        - Authority
+        - Penalty
+
+    LegalRelationshipType:
+      type: string
+      enum:
+        - CONTAINS
+        - DEFINES
+        - AMENDS
+        - REFERENCES
+        - IMPLEMENTS
+        - IMPOSES
+        - GRANTS_POWER
+        - PRESCRIBES_PENALTY
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        service:
+          type: string
+
+    ErrorResponse:
+      type: object
+      required:
+        - error_code
+        - message
+        - correlation_id
+      properties:
+        error_code:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error description
+        correlation_id:
+          type: string
+          format: uuid
+          description: Request correlation ID for tracing
+
+  responses:
+    ValidationError:
+      description: Request validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "VALIDATION_ERROR"
+            message: "Request body validation failed: entities[0].entity_type must be a valid LegalEntityType"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"
+
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "INTERNAL_ERROR"
+            message: "An unexpected error occurred processing the request"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"
+
+    DependencyUnavailable:
+      description: Dependency unavailable (Neo4j)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "NEO4J_UNAVAILABLE"
+            message: "Neo4j database is unreachable or query timed out after 5 seconds"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"

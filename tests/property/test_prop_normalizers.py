@@ -19,12 +19,16 @@ from src.domain.processing.plaintext_normalizer import PlaintextNormalizer
 
 # --- Custom Strategies ---
 
-# Generate heading text: letters and spaces, no special chars that would confuse parsers
+# Generate heading text: must start with a letter, contains letters/digits/spaces
+# Filtered to avoid headings that are all digits/spaces (which parsers may not recognize)
+# Also filtered to avoid consecutive spaces (HTML collapses whitespace)
 heading_text = st.text(
     alphabet=st.characters(whitelist_categories=("L", "N"), whitelist_characters=" "),
     min_size=3,
     max_size=40,
-).map(str.strip).filter(lambda s: len(s) >= 3)
+).map(str.strip).filter(
+    lambda s: len(s) >= 3 and any(c.isalpha() for c in s) and "  " not in s
+)
 
 # Generate a list of unique section headings
 unique_headings = st.lists(

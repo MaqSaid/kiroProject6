@@ -1,0 +1,303 @@
+WORKPLACE HEALTH AND SAFETY ACT 2024
+
+No. 28 of 2024
+
+An Act to secure the health, safety, and welfare of workers and
+other persons at work, to eliminate or minimise risks arising from
+work, and for related purposes.
+
+The Parliament of Queensland enacts:
+
+PART 1 — PRELIMINARY
+
+Section 1 — Short title
+    This Act may be cited as the Workplace Health and Safety Act 2024.
+
+Section 2 — Commencement
+    This Act commences on 1 January 2025.
+
+Section 3 — Object
+    The object of this Act is to provide for a balanced and nationally
+    consistent framework to secure the health and safety of workers
+    and workplaces by—
+    (a) protecting workers and other persons against harm to their
+        health, safety, and welfare through the elimination or
+        minimisation of risks arising from work; and
+    (b) providing for fair and effective workplace representation,
+        consultation, cooperation, and issue resolution in relation
+        to work health and safety; and
+    (c) encouraging unions and employer organisations to take a
+        constructive role in promoting improvements in work health
+        and safety practices; and
+    (d) promoting the provision of advice, information, education,
+        and training in relation to work health and safety; and
+    (e) securing compliance through effective and appropriate
+        enforcement measures.
+
+Section 4 — Definitions
+    In this Act—
+    "PCBU" means a person conducting a business or undertaking,
+        whether alone or with others and whether or not for profit;
+    "worker" means a person who carries out work in any capacity for
+        a PCBU, including as an employee, contractor, subcontractor,
+        outworker, apprentice, trainee, work experience student, or
+        volunteer;
+    "workplace" means a place where work is carried out for a business
+        or undertaking and includes any place where a worker goes, or
+        is likely to be, while at work;
+    "notifiable incident" has the meaning given by section 35;
+    "health and safety representative" means a worker elected under
+        Part 5 to represent workers on health and safety matters;
+    "inspector" means a person appointed as an inspector under Part 8;
+    "reasonably practicable" means that which is, or was at a particular
+        time, reasonably able to be done in relation to ensuring health
+        and safety, taking into account—
+        (a) the likelihood of the hazard or risk occurring; and
+        (b) the degree of harm that might result; and
+        (c) what the person knows or ought reasonably to know; and
+        (d) the availability and suitability of ways to eliminate or
+            minimise the risk; and
+        (e) the cost of eliminating or minimising the risk.
+
+PART 2 — HEALTH AND SAFETY DUTIES
+
+Division 1 — Duties of PCBUs
+
+Section 5 — Primary duty of care
+    (1) A PCBU must ensure, so far as is reasonably practicable, the
+        health and safety of—
+        (a) workers engaged, or caused to be engaged, by the PCBU; and
+        (b) workers whose activities in carrying out work are influenced
+            or directed by the PCBU;
+        while the workers are at work in the business or undertaking.
+    (2) A PCBU must ensure, so far as is reasonably practicable, that
+        the health and safety of other persons is not put at risk from
+        work carried out as part of the conduct of the business or
+        undertaking.
+    (3) Without limiting subsections (1) and (2), a PCBU must ensure,
+        so far as is reasonably practicable—
+        (a) the provision and maintenance of a work environment without
+            risks to health and safety; and
+        (b) the provision and maintenance of safe plant and structures; and
+        (c) the provision and maintenance of safe systems of work; and
+        (d) the safe use, handling, and storage of plant, structures,
+            and substances; and
+        (e) the provision of adequate facilities for the welfare of
+            workers; and
+        (f) the provision of information, training, instruction, or
+            supervision necessary to protect all persons from risks; and
+        (g) the monitoring of the health of workers and the conditions
+            at the workplace for the purpose of preventing illness or
+            injury.
+    (4) Cross-reference: for the interaction with the Road Safety Act 2024
+        regarding automated driving system entities, see section 16 of
+        that Act.
+
+Section 6 — Duty in relation to substances
+    A PCBU must ensure, so far as is reasonably practicable, that—
+    (a) hazardous substances are correctly labelled; and
+    (b) safety data sheets are available for all hazardous substances; and
+    (c) workers who handle hazardous substances receive appropriate training.
+
+Section 7 — Duty to manage risks
+    (1) A PCBU must manage risks to health and safety by—
+        (a) eliminating risks so far as is reasonably practicable; and
+        (b) if it is not reasonably practicable to eliminate risks—
+            minimising those risks so far as is reasonably practicable
+            by implementing control measures in accordance with
+            subsection (2).
+    (2) The hierarchy of control measures is—
+        (a) substitution;
+        (b) isolation;
+        (c) engineering controls;
+        (d) administrative controls;
+        (e) personal protective equipment.
+
+Division 2 — Duties of Officers
+
+Section 8 — Duty of officers
+    If a PCBU owes a duty under this Part, an officer of the PCBU must
+    exercise due diligence to ensure that the PCBU complies with that
+    duty, including by—
+    (a) acquiring and keeping up-to-date knowledge of work health and
+        safety matters; and
+    (b) understanding the nature of operations and the hazards and
+        risks associated with those operations; and
+    (c) ensuring that appropriate resources and processes are available
+        to eliminate or minimise risks; and
+    (d) ensuring that processes for receiving and considering information
+        regarding incidents, hazards, and risks are in place; and
+    (e) ensuring compliance with the PCBU's duties and obligations.
+
+Division 3 — Duties of Workers
+
+Section 9 — Duties of workers
+    While at work, a worker must—
+    (a) take reasonable care for their own health and safety; and
+    (b) take reasonable care that their acts or omissions do not
+        adversely affect the health and safety of other persons; and
+    (c) comply, so far as is reasonably able, with any reasonable
+        instruction given by the PCBU; and
+    (d) cooperate with any reasonable policy or procedure of the PCBU.
+
+PART 3 — CONSULTATION, REPRESENTATION, AND PARTICIPATION
+
+Division 1 — Consultation Requirements
+
+Section 10 — Duty to consult workers
+    (1) A PCBU must, so far as is reasonably practicable, consult with
+        workers who carry out work for the business or undertaking and
+        who are, or are likely to be, directly affected by a matter
+        relating to work health or safety.
+    (2) Consultation is required in relation to—
+        (a) identifying hazards and assessing risks arising from work; and
+        (b) making decisions about ways to eliminate or minimise risks; and
+        (c) making decisions about the adequacy of facilities; and
+        (d) proposing changes that may affect the health or safety of
+            workers; and
+        (e) making decisions about procedures for consultation,
+            monitoring, or providing information or training.
+    (3) Consultation must involve—
+        (a) sharing relevant information about the matter with workers; and
+        (b) giving workers a reasonable opportunity to express their
+            views; and
+        (c) taking those views into account; and
+        (d) advising workers of the outcome of consultation.
+
+Section 11 — Consultation with other PCBUs
+    If more than one PCBU has a duty in relation to the same matter,
+    each PCBU must, so far as is reasonably practicable, consult,
+    cooperate, and coordinate activities with each other PCBU.
+
+Division 2 — Health and Safety Representatives
+
+Section 12 — Election of representatives
+    (1) Workers at a workplace may request the PCBU to facilitate the
+        election of one or more health and safety representatives.
+    (2) The PCBU must facilitate the election within 14 days.
+    (3) A health and safety representative holds office for 3 years
+        unless they cease to be a worker at the workplace.
+
+Section 13 — Powers of representatives
+    A health and safety representative for a work group may—
+    (a) represent workers in the group on matters relating to work
+        health and safety; and
+    (b) monitor measures taken by the PCBU in compliance with this Act; and
+    (c) investigate complaints from workers regarding health and safety; and
+    (d) issue a provisional improvement notice under section 34.
+
+PART 4 — NOTIFIABLE INCIDENTS
+
+Section 14 — Meaning of notifiable incident
+    A notifiable incident means—
+    (a) the death of a person; or
+    (b) a serious injury or illness of a person; or
+    (c) a dangerous incident.
+
+Section 15 — Meaning of serious injury or illness
+    A serious injury or illness means an injury or illness requiring—
+    (a) immediate treatment as an in-patient in a hospital; or
+    (b) immediate treatment for—
+        (i) the amputation of any part of the body; or
+        (ii) a serious head injury; or
+        (iii) a serious eye injury; or
+        (iv) a serious burn; or
+        (v) the separation of skin from underlying tissue; or
+        (vi) a spinal injury; or
+        (vii) loss of a bodily function; or
+        (viii) serious lacerations.
+
+Section 16 — Meaning of dangerous incident
+    A dangerous incident means an incident in relation to a workplace
+    that exposes a worker or any other person to a serious risk to
+    health or safety, including—
+    (a) an uncontrolled escape, spillage, or leakage of a substance; or
+    (b) an uncontrolled implosion, explosion, or fire; or
+    (c) an uncontrolled escape of gas or steam; or
+    (d) the collapse or failure of an excavation, or of a structure; or
+    (e) electric shock; or
+    (f) the fall or release from a height of any plant, substance, or thing.
+
+Section 17 — Duty to notify regulator
+    (1) A PCBU must notify the regulator immediately after becoming
+        aware that a notifiable incident arising out of the conduct of
+        the business or undertaking has occurred.
+    (2) The notice must be given by the fastest possible means.
+    (3) The PCBU must ensure that the site is preserved until an
+        inspector arrives or directs otherwise.
+    (4) Penalty: 500 penalty units for a body corporate;
+        100 penalty units for an individual.
+    (5) Cross-reference: for inspector powers on site, see Part 8.
+
+PART 5 — HEALTH AND SAFETY COMMITTEES
+
+Section 18 — Establishment of committees
+    (1) A PCBU must establish a health and safety committee within
+        2 months after being requested to do so by—
+        (a) a health and safety representative; or
+        (b) 5 or more workers at the workplace.
+    (2) A committee must consist of equal numbers of representatives
+        nominated by the PCBU and elected by workers.
+
+PART 6 — ISSUE RESOLUTION
+
+Section 19 — Procedures for issue resolution
+    (1) If an issue about work health or safety arises at a workplace,
+        the parties must attempt to resolve it at the workplace level.
+    (2) If the issue is not resolved, any party may request the
+        assistance of an inspector under Part 8.
+
+PART 7 — PENALTIES
+
+Section 20 — Category 1 offences
+    (1) A person commits a Category 1 offence if the person, without
+        reasonable excuse, engages in conduct that exposes an individual
+        to a risk of death or serious injury or illness and the person
+        is reckless as to the risk.
+    (2) Maximum penalty—
+        (a) for a body corporate—30,000 penalty units;
+        (b) for an officer—6,000 penalty units or 5 years imprisonment;
+        (c) for any other person—3,000 penalty units or 5 years imprisonment.
+
+Section 21 — Category 2 offences
+    (1) A person commits a Category 2 offence if the person fails to
+        comply with a health and safety duty and the failure exposes an
+        individual to a risk of death or serious injury or illness.
+    (2) Maximum penalty—
+        (a) for a body corporate—15,000 penalty units;
+        (b) for an officer—3,000 penalty units;
+        (c) for any other person—1,500 penalty units.
+
+PART 8 — ENFORCEMENT
+
+Section 22 — Appointment of inspectors
+    The regulator may appoint inspectors for the purposes of this Act.
+
+Section 23 — Powers of inspectors
+    An inspector may, for the purposes of this Act—
+    (a) enter a workplace at any reasonable time;
+    (b) inspect and examine any thing at the workplace;
+    (c) require the production of documents;
+    (d) take measurements, samples, and recordings;
+    (e) interview any person at the workplace.
+
+Section 24 — Improvement notices
+    An inspector may issue an improvement notice if the inspector
+    reasonably believes that a person is contravening or has contravened
+    a provision of this Act.
+
+Section 25 — Prohibition notices
+    An inspector may issue a prohibition notice if the inspector
+    reasonably believes that an activity is occurring or may occur at a
+    workplace that involves a serious risk to the health or safety of
+    a person.
+
+PART 9 — MISCELLANEOUS
+
+Section 26 — Regulations
+    The Governor in Council may make regulations for or with respect to
+    any matter necessary to give effect to this Act.
+
+Section 27 — Review of Act
+    The Minister must cause an independent review of this Act to be
+    conducted within 5 years after commencement.

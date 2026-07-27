@@ -1,4 +1,10 @@
 from src.domain.processing.chunking import Chunker, ChunkerFactory
+from src.domain.processing.entity_extractor import (
+    EntityExtractor,
+    ExtractionResult,
+    LLMExtractionPort,
+    RawExtractionResponse,
+)
 from src.domain.processing.fixed_size_chunker import FixedSizeChunker
 from src.domain.processing.html_normalizer import HTMLNormalizer
 from src.domain.processing.markdown_normalizer import MarkdownNormalizer
@@ -16,13 +22,17 @@ __all__ = [
     "Chunker",
     "ChunkerFactory",
     "DocumentNormalizer",
+    "EntityExtractor",
+    "ExtractionResult",
     "FixedSizeChunker",
     "FormatNormalizer",
     "HTMLNormalizer",
+    "LLMExtractionPort",
     "MarkdownNormalizer",
     "NormalizedContent",
     "PDFNormalizer",
     "PlaintextNormalizer",
+    "RawExtractionResponse",
     "RecursiveChunker",
     "SemanticChunker",
 ]

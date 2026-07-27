@@ -9,8 +9,20 @@ Validates: Requirements 1.1, 1.2, 1.4, 1.5
 from datetime import datetime
 from uuid import uuid4
 
+import pytest
+
 from src.domain.models.entities import RawDocument
 from src.domain.models.enums import DocumentFormat
+from src.domain.processing.html_normalizer import HTMLNormalizer
+from src.domain.processing.markdown_normalizer import MarkdownNormalizer
+from src.domain.processing.normalizer import DocumentNormalizer
+from src.domain.processing.pdf_normalizer import PDFNormalizer
+from src.domain.processing.plaintext_normalizer import PlaintextNormalizer
+
+try:
+    from unittest.mock import MagicMock, patch
+except ImportError:
+    from mock import MagicMock, patch
 
 # ============================================================
 # Helpers

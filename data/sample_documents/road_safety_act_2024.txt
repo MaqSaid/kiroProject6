@@ -1,0 +1,246 @@
+ROAD SAFETY ACT 2024
+
+No. 42 of 2024
+
+An Act to promote road safety, regulate the use of motor vehicles,
+and provide for the licensing of drivers in the State of Victoria.
+
+The Parliament of Victoria enacts:
+
+PART 1 — PRELIMINARY
+
+Division 1 — Introduction
+
+Section 1 — Short title
+    This Act may be cited as the Road Safety Act 2024.
+
+Section 2 — Commencement
+    (1) This Act comes into operation on a day or days to be proclaimed.
+    (2) If a provision of this Act does not come into operation before
+        1 July 2025, it comes into operation on that day.
+
+Section 3 — Purposes
+    The purposes of this Act are—
+    (a) to provide for the safe and efficient use of roads; and
+    (b) to reduce road trauma; and
+    (c) to establish a regulatory framework for automated vehicles; and
+    (d) to provide for the licensing and registration of drivers and vehicles.
+
+Section 4 — Definitions
+    In this Act—
+    "automated driving system" means the hardware and software that are
+        collectively capable of performing the entire dynamic driving task
+        on a sustained basis;
+    "BAC" means blood alcohol concentration as defined in Part 3;
+    "driver" means a person who drives a motor vehicle on a highway and
+        includes a person who is learning to drive under section 24;
+    "highway" has the same meaning as in the Transport Integration Act 2010;
+    "motor vehicle" means a vehicle that uses an engine or motor for
+        propulsion, but does not include a vehicle that—
+        (a) cannot travel at more than 10 kilometres per hour; or
+        (b) is a motorised wheelchair;
+    "PCBU" has the meaning given in the Workplace Health and Safety Act 2024;
+    "penalty unit" has the value fixed from time to time under the
+        Monetary Units Act 2004;
+    "registered operator" means the person in whose name a vehicle is
+        registered under Part 5;
+    "road" includes a highway, street, lane, or thoroughfare.
+
+Division 2 — Application
+
+Section 5 — Application of Act
+    (1) This Act applies to all roads within Victoria.
+    (2) This Act binds the Crown in right of the State of Victoria.
+    (3) Nothing in this Act affects the operation of the Privacy Act 2024
+        (Cth) with respect to the collection of personal information
+        under this Act—see section 12 of the Privacy Act 2024.
+
+PART 2 — DRIVER LICENSING
+
+Division 1 — Learner Permits
+
+Section 6 — Eligibility for learner permit
+    A person may apply for a learner permit if the person—
+    (a) has attained the age of 16 years; and
+    (b) has passed the prescribed knowledge test; and
+    (c) is a fit and proper person to hold a learner permit.
+
+Section 7 — Conditions of learner permit
+    (1) A learner permit is subject to the following conditions—
+        (a) the holder must not drive a motor vehicle unless accompanied
+            by a supervising driver as defined in section 8;
+        (b) the holder must display L-plates in the prescribed manner;
+        (c) the holder must not have a BAC exceeding 0.00.
+    (2) A person who contravenes subsection (1) is guilty of an offence.
+        Penalty: 10 penalty units.
+
+Section 8 — Supervising driver
+    A supervising driver must—
+    (a) hold a full licence; and
+    (b) have held that licence for at least 2 years; and
+    (c) have a BAC not exceeding 0.05 while supervising.
+
+Division 2 — Probationary Licences
+
+Section 9 — Eligibility for probationary licence
+    A person may apply for a probationary licence if the person—
+    (a) has held a learner permit for at least 12 months; and
+    (b) has completed a minimum of 120 hours of supervised driving,
+        including at least 20 hours of night driving; and
+    (c) has passed the prescribed driving test.
+
+Section 10 — Conditions of probationary licence
+    (1) A probationary licence is subject to the following conditions—
+        (a) the holder must not have a BAC exceeding 0.00;
+        (b) the holder must not drive a high-powered vehicle as
+            prescribed in the regulations;
+        (c) the holder must display P-plates in the prescribed manner.
+    (2) A person who contravenes subsection (1) is guilty of an offence.
+        Penalty: 15 penalty units.
+
+PART 3 — DRINK AND DRUG DRIVING
+
+Division 1 — Blood Alcohol Offences
+
+Section 11 — Driving while exceeding prescribed BAC
+    (1) A person must not drive a motor vehicle while the prescribed
+        concentration of alcohol is present in the person's blood.
+    (2) For the purposes of this section, the prescribed concentration
+        of alcohol is—
+        (a) for a person holding a learner permit or probationary
+            licence—any concentration exceeding 0.00; or
+        (b) for all other persons—a concentration exceeding 0.05.
+    (3) Penalty—
+        (a) for a first offence—25 penalty units or imprisonment for
+            3 months, or both;
+        (b) for a subsequent offence—120 penalty units or imprisonment
+            for 12 months, or both.
+
+Section 12 — Driving under influence of drugs
+    (1) A person must not drive a motor vehicle while impaired by a drug.
+    (2) For the purposes of this section, a prescribed drug includes—
+        (a) methylamphetamine;
+        (b) THC (delta-9-tetrahydrocannabinol);
+        (c) MDMA.
+    (3) Penalty: 25 penalty units or imprisonment for 3 months, or both.
+
+Division 2 — Testing Procedures
+
+Section 13 — Preliminary breath test
+    (1) A police officer may require any person driving or in charge of
+        a motor vehicle on a highway to undergo a preliminary breath test.
+    (2) A person must comply with a requirement under subsection (1).
+        Penalty: 10 penalty units.
+    (3) Evidence obtained under this section is admissible in proceedings
+        under section 11.
+
+Section 14 — Evidentiary breath analysis
+    (1) If a preliminary breath test indicates the presence of alcohol,
+        a police officer may require the person to undergo an evidentiary
+        breath analysis at an approved testing station.
+    (2) Cross-reference: see section 11 for prescribed BAC limits.
+
+PART 4 — AUTOMATED VEHICLES
+
+Section 15 — Registration of automated driving system
+    (1) A person must not operate an automated driving system on a road
+        unless the system is registered under this Part.
+    (2) An application for registration must include—
+        (a) evidence of compliance with the prescribed safety standards;
+        (b) a safety management plan; and
+        (c) evidence of insurance coverage as required by Part 6.
+    (3) Penalty: 200 penalty units.
+
+Section 16 — Duties of automated driving system entity
+    (1) An ADSE has the duties of a driver when the automated driving
+        system is engaged.
+    (2) Cross-reference: for general driver duties, see Part 2.
+    (3) The duties under the Workplace Health and Safety Act 2024
+        continue to apply to an ADSE—see section 19 of that Act.
+
+PART 5 — VEHICLE REGISTRATION
+
+Section 17 — Requirement for registration
+    (1) A person must not use an unregistered motor vehicle on a road.
+        Penalty: 20 penalty units.
+    (2) This section does not apply to a vehicle being driven directly to
+        a place of inspection under section 18.
+
+Section 18 — Roadworthiness inspections
+    A motor vehicle must pass a roadworthiness inspection—
+    (a) on initial registration; and
+    (b) on transfer of registration; and
+    (c) at intervals prescribed by the regulations.
+
+PART 6 — INSURANCE
+
+Section 19 — Compulsory third party insurance
+    (1) The registered operator of a motor vehicle must maintain a
+        policy of compulsory third party insurance in respect of the vehicle.
+    (2) An insurer may refuse to issue a policy only on grounds
+        prescribed by the regulations.
+    (3) Cross-reference: for the interaction between CTP insurance and
+        automated vehicles, see section 15(2)(c).
+
+PART 7 — ENFORCEMENT AND PENALTIES
+
+Section 20 — Powers of authorised officers
+    An authorised officer may—
+    (a) stop and inspect any motor vehicle on a road;
+    (b) require the production of a licence or registration document;
+    (c) issue an infringement notice for a prescribed offence.
+
+Section 21 — Infringement penalties
+    The following infringement penalties apply—
+    (a) driving while unlicensed—5 penalty units;
+    (b) driving an unregistered vehicle—10 penalty units;
+    (c) failure to display P-plates or L-plates—3 penalty units;
+    (d) exceeding speed limit by 10-25 km/h—5 penalty units;
+    (e) exceeding speed limit by more than 25 km/h—15 penalty units.
+
+Section 22 — Demerit points
+    (1) A person incurs demerit points as prescribed in Schedule 1.
+    (2) If a person accumulates 12 or more demerit points within a
+        period of 3 years, the person's licence is suspended.
+    (3) Cross-reference: for licence suspension procedures, see section 23.
+
+Section 23 — Licence suspension and cancellation
+    (1) The licensing authority may suspend or cancel a licence if—
+        (a) the holder has accumulated excessive demerit points
+            under section 22; or
+        (b) the holder has been convicted of an offence under Part 3; or
+        (c) the holder is no longer a fit and proper person.
+    (2) A person whose licence is suspended must surrender the licence
+        within 7 days.
+        Penalty: 10 penalty units.
+
+PART 8 — MISCELLANEOUS
+
+Section 24 — Regulations
+    The Governor in Council may make regulations for or with respect to—
+    (a) prescribing forms, fees, and procedures;
+    (b) prescribing standards for automated driving systems;
+    (c) prescribing the manner of displaying number plates;
+    (d) any matter necessary to give effect to this Act.
+
+Section 25 — Savings and transitional provisions
+    (1) A licence or permit in force under the repealed Road Safety
+        Act 1986 continues in force as if issued under this Act.
+    (2) Demerit points recorded before commencement are carried forward.
+
+Section 26 — Repeal
+    The Road Safety Act 1986 is repealed.
+
+______________
+SCHEDULE 1 — DEMERIT POINTS
+
+Offence                                          Points
+Exceed speed limit by less than 10 km/h             1
+Exceed speed limit by 10-25 km/h                    3
+Exceed speed limit by more than 25 km/h             6
+Exceed speed limit by more than 45 km/h             8
+Fail to obey traffic signal                         3
+Use mobile phone while driving                      4
+Fail to wear seatbelt                               3
+Drink driving (first offence)                      10
+Drink driving (subsequent offence)                 12

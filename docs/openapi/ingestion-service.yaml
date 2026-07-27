@@ -1,0 +1,333 @@
+openapi: 3.1.0
+info:
+  title: Ingestion Service API
+  description: |
+    Ingestion Service handling document upload, chunking, embedding (via Embedding Service),
+    and graph storage (via Graph Service). Owns ChromaDB and BM25 index.
+  version: 1.0.0
+  contact:
+    name: Platform Team
+
+servers:
+  - url: http://ingestion-service:8000
+    description: Docker Compose internal
+
+paths:
+  /v1/ingest:
+    post:
+      operationId: ingestDocument
+      summary: Upload and ingest a document
+      description: |
+        Accepts a file upload (multipart), validates format/size, auto-selects chunker,
+        chunks the document, extracts entities/relationships, generates embeddings via
+        Embedding Service, stores vectors in ChromaDB + BM25 index, and stores entities
+        and relationships via Graph Service.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: "Document file (.txt, .md, .html, .pdf). Max size: 50 MB."
+                chunking_strategy:
+                  type: string
+                  enum:
+                    - fixed_size
+                    - recursive
+                    - semantic
+                    - legal_hierarchical
+                  description: "Optional explicit chunking strategy. If omitted, auto-selected based on file type."
+            encoding:
+              file:
+                contentType: text/plain, text/markdown, text/html, application/pdf
+      responses:
+        '201':
+          description: Document ingested successfully
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestResponse'
+              example:
+                document_id: "doc-abc-123"
+                filename: "transport_infrastructure_act_2024.md"
+                chunks_produced: 42
+                chunking_strategy: "legal_hierarchical"
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/DependencyUnavailable'
+
+  /v1/documents:
+    get:
+      operationId: listDocuments
+      summary: List all ingested documents
+      description: Returns a list of all ingested documents sorted by ingestion date descending (most recent first).
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      responses:
+        '200':
+          description: Document list retrieved successfully
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentListResponse'
+              example:
+                documents:
+                  - document_id: "doc-abc-123"
+                    filename: "transport_infrastructure_act_2024.md"
+                    format: "md"
+                    ingestion_date: "2024-01-15T10:30:00Z"
+                    chunks_produced: 42
+                  - document_id: "doc-def-456"
+                    filename: "driver_licensing_regulation.pdf"
+                    format: "pdf"
+                    ingestion_date: "2024-01-14T08:15:00Z"
+                    chunks_produced: 28
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /health:
+    get:
+      operationId: healthCheck
+      summary: Basic health check
+      description: Checks ChromaDB connectivity and BM25 index availability
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "healthy"
+                service: "ingestion-service"
+        '503':
+          description: Service is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "unhealthy"
+                service: "ingestion-service"
+
+  /health/ready:
+    get:
+      operationId: readinessCheck
+      summary: Readiness probe
+      description: |
+        Verifies ChromaDB connection is established, BM25 index is initialized,
+        and downstream services (Embedding Service, Graph Service) are reachable.
+      responses:
+        '200':
+          description: Service is ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "ready"
+                service: "ingestion-service"
+        '503':
+          description: Service is not ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "not_ready"
+                service: "ingestion-service"
+
+  /health/live:
+    get:
+      operationId: livenessCheck
+      summary: Liveness probe
+      description: Returns HTTP 200 if the process is running (always succeeds)
+      responses:
+        '200':
+          description: Process is alive
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "alive"
+                service: "ingestion-service"
+
+  /metrics:
+    get:
+      operationId: getMetrics
+      summary: Prometheus metrics endpoint
+      description: Returns Prometheus-compatible metrics for scraping
+      responses:
+        '200':
+          description: Metrics in Prometheus exposition format
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |
+                # HELP rag_ingestion_chunks_total Total chunks produced
+                # TYPE rag_ingestion_chunks_total counter
+                rag_ingestion_chunks_total{strategy="legal_hierarchical"} 420
+                rag_ingestion_chunks_total{strategy="recursive"} 156
+                # HELP rag_ingestion_documents_total Total documents ingested
+                # TYPE rag_ingestion_documents_total counter
+                rag_ingestion_documents_total 18
+
+components:
+  parameters:
+    CorrelationId:
+      name: X-Correlation-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: Correlation ID for distributed tracing
+
+  headers:
+    CorrelationId:
+      schema:
+        type: string
+        format: uuid
+      description: Correlation ID echoed back for tracing
+
+  schemas:
+    IngestResponse:
+      type: object
+      required:
+        - document_id
+        - filename
+        - chunks_produced
+        - chunking_strategy
+      properties:
+        document_id:
+          type: string
+          description: Unique identifier for the ingested document
+        filename:
+          type: string
+          description: Original filename of the uploaded document
+        chunks_produced:
+          type: integer
+          description: Number of chunks generated from the document
+        chunking_strategy:
+          type: string
+          enum:
+            - fixed_size
+            - recursive
+            - semantic
+            - legal_hierarchical
+          description: The chunking strategy used
+
+    DocumentListResponse:
+      type: object
+      required:
+        - documents
+      properties:
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentSummary'
+
+    DocumentSummary:
+      type: object
+      required:
+        - document_id
+        - filename
+        - format
+        - ingestion_date
+        - chunks_produced
+      properties:
+        document_id:
+          type: string
+          description: Unique document identifier
+        filename:
+          type: string
+          description: Original filename
+        format:
+          type: string
+          description: File format (txt, md, html, pdf)
+        ingestion_date:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of ingestion
+        chunks_produced:
+          type: integer
+          description: Number of chunks created
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        service:
+          type: string
+
+    ErrorResponse:
+      type: object
+      required:
+        - error_code
+        - message
+        - correlation_id
+      properties:
+        error_code:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error description
+        correlation_id:
+          type: string
+          format: uuid
+          description: Request correlation ID for tracing
+
+  responses:
+    ValidationError:
+      description: Request validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "VALIDATION_ERROR"
+            message: "Unsupported file format. Allowed: .txt, .md, .html, .pdf"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"
+
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "INTERNAL_ERROR"
+            message: "An unexpected error occurred during document ingestion"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"
+
+    DependencyUnavailable:
+      description: Dependency unavailable (ChromaDB, Embedding Service, or Graph Service)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "DEPENDENCY_UNAVAILABLE"
+            message: "Embedding Service is unreachable; document ingestion cannot complete"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"

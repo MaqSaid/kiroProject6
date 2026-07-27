@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "name": "Validate OpenAPI Schema",
+  "description": "When OpenAPI YAML files are edited in specs/ or docs/openapi/, validate that the YAML is well-formed and conforms to OpenAPI schema structure",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "filePatterns": ["docs/openapi/*.yaml", "specs/*.yaml", "specs/**/*.yaml"]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "python -c \"import yaml, sys, pathlib; data=yaml.safe_load(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8')); assert 'openapi' in data or 'paths' in data or 'components' in data, 'Not a valid OpenAPI file'\" \"${file}\"",
+    "timeout": 15
+  }
+}

@@ -1,0 +1,688 @@
+openapi: 3.1.0
+info:
+  title: API Gateway
+  description: |
+    Centralized API Gateway handling cross-cutting concerns: authentication,
+    rate limiting (60 req/min/key), CORS, correlation ID injection, security headers,
+    and request routing to downstream services. Replicates AWS API Gateway behavior in dev.
+  version: 1.0.0
+  contact:
+    name: Platform Team
+
+servers:
+  - url: http://localhost:8080
+    description: Local development
+  - url: https://api.legislation-rag.example.com
+    description: Production (AWS API Gateway)
+
+security:
+  - ApiKeyAuth: []
+
+paths:
+  /v1/agents/ask:
+    post:
+      operationId: proxyAgentAsk
+      summary: Proxy to Query Service agent pipeline
+      description: |
+        Proxies to Query Service POST /v1/agents/ask.
+        Timeout: 30 seconds. Returns 504 if exceeded.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentAskRequest'
+            example:
+              query: "What are the road design standards under the Transport Infrastructure Act?"
+      responses:
+        '200':
+          description: Query processed successfully
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/CorrelationId'
+            Strict-Transport-Security:
+              $ref: '#/components/headers/HSTS'
+            X-Frame-Options:
+              $ref: '#/components/headers/XFrameOptions'
+            X-Content-Type-Options:
+              $ref: '#/components/headers/XContentTypeOptions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentAskResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/DependencyUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+
+  /v1/ask:
+    post:
+      operationId: proxyDirectAsk
+      summary: Proxy to Query Service direct retrieval
+      description: |
+        Proxies to Query Service POST /v1/ask.
+        Timeout: 30 seconds. Returns 504 if exceeded.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentAskRequest'
+            example:
+              query: "What penalties exist for exceeding vehicle weight limits?"
+      responses:
+        '200':
+          description: Query processed successfully
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentAskResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/DependencyUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+
+  /v1/ingest:
+    post:
+      operationId: proxyIngest
+      summary: Proxy to Ingestion Service document upload
+      description: |
+        Proxies to Ingestion Service POST /v1/ingest.
+        Timeout: 60 seconds. Returns 504 if exceeded.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: "Document file (.txt, .md, .html, .pdf). Max size: 50 MB."
+                chunking_strategy:
+                  type: string
+                  enum:
+                    - fixed_size
+                    - recursive
+                    - semantic
+                    - legal_hierarchical
+                  description: Optional explicit chunking strategy
+      responses:
+        '201':
+          description: Document ingested successfully
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestResponse'
+              example:
+                document_id: "doc-abc-123"
+                filename: "transport_infrastructure_act_2024.md"
+                chunks_produced: 42
+                chunking_strategy: "legal_hierarchical"
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/DependencyUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+
+  /v1/documents:
+    get:
+      operationId: proxyListDocuments
+      summary: Proxy to Ingestion Service document list
+      description: Proxies to Ingestion Service GET /v1/documents.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      responses:
+        '200':
+          description: Document list retrieved successfully
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentListResponse'
+              example:
+                documents:
+                  - document_id: "doc-abc-123"
+                    filename: "transport_infrastructure_act_2024.md"
+                    format: "md"
+                    ingestion_date: "2024-01-15T10:30:00Z"
+                    chunks_produced: 42
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/DependencyUnavailable'
+
+  /health:
+    get:
+      operationId: aggregatedHealth
+      summary: Aggregated health check
+      description: |
+        Checks connectivity to all downstream services (Query Service, Ingestion Service,
+        Graph Service, Embedding Service). Returns 200 when all healthy, 503 when any fails.
+        Timeout: 5 seconds per downstream service.
+      security: []
+      responses:
+        '200':
+          description: All downstream services are healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AggregatedHealthResponse'
+              example:
+                status: "healthy"
+                services:
+                  - service: "query-service"
+                    status: "healthy"
+                    latency_ms: 12.5
+                  - service: "ingestion-service"
+                    status: "healthy"
+                    latency_ms: 8.3
+                  - service: "graph-service"
+                    status: "healthy"
+                    latency_ms: 15.1
+                  - service: "embedding-service"
+                    status: "healthy"
+                    latency_ms: 10.7
+        '503':
+          description: One or more downstream services are unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AggregatedHealthResponse'
+              example:
+                status: "unhealthy"
+                services:
+                  - service: "query-service"
+                    status: "healthy"
+                    latency_ms: 12.5
+                  - service: "ingestion-service"
+                    status: "healthy"
+                    latency_ms: 8.3
+                  - service: "graph-service"
+                    status: "unhealthy"
+                    latency_ms: null
+                  - service: "embedding-service"
+                    status: "healthy"
+                    latency_ms: 10.7
+
+  /health/ready:
+    get:
+      operationId: readinessCheck
+      summary: Readiness probe
+      description: |
+        Returns 200 if the gateway is ready to accept requests. Verifies that
+        downstream service URLs are configured and the middleware stack is initialized.
+      security: []
+      responses:
+        '200':
+          description: Gateway is ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "ready"
+                service: "gateway"
+        '503':
+          description: Gateway is not ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "not_ready"
+                service: "gateway"
+
+  /health/live:
+    get:
+      operationId: livenessCheck
+      summary: Liveness probe
+      description: Returns HTTP 200 if the gateway process is running (always succeeds)
+      security: []
+      responses:
+        '200':
+          description: Process is alive
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "alive"
+                service: "gateway"
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key for authentication (validated against configured key set)
+
+  parameters:
+    CorrelationId:
+      name: X-Correlation-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: |
+        Optional correlation ID. If not provided, the gateway generates a UUID v4
+        and injects it into the proxied request and response.
+
+  headers:
+    CorrelationId:
+      schema:
+        type: string
+        format: uuid
+      description: Correlation ID for distributed tracing (always present in responses)
+    HSTS:
+      schema:
+        type: string
+        default: "max-age=31536000"
+      description: Strict-Transport-Security header
+    XFrameOptions:
+      schema:
+        type: string
+        default: "DENY"
+      description: X-Frame-Options header
+    XContentTypeOptions:
+      schema:
+        type: string
+        default: "nosniff"
+      description: X-Content-Type-Options header
+
+  schemas:
+    AgentAskRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          description: Natural language query about legislation (1-2000 characters)
+
+    AgentAskResponse:
+      type: object
+      required:
+        - answer
+        - citations
+        - confidence_scores
+        - source_chunks
+        - is_fallback
+      properties:
+        answer:
+          type: string
+          description: Generated answer text
+        citations:
+          type: array
+          items:
+            $ref: '#/components/schemas/CitationResponse'
+        confidence_scores:
+          $ref: '#/components/schemas/ConfidenceScoreResponse'
+        source_chunks:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceChunkResponse'
+        is_fallback:
+          type: boolean
+        fallback_info:
+          oneOf:
+            - $ref: '#/components/schemas/FallbackInfoResponse'
+            - type: 'null'
+
+    CitationResponse:
+      type: object
+      required:
+        - index
+        - source_reference
+        - claim
+        - verification_status
+      properties:
+        index:
+          type: integer
+        source_reference:
+          type: string
+        claim:
+          type: string
+        verification_status:
+          type: string
+          enum:
+            - verified
+            - unsupported
+            - partial
+
+    ConfidenceScoreResponse:
+      type: object
+      required:
+        - retrieval_confidence
+        - citation_coverage
+        - answer_completeness
+        - composite
+      properties:
+        retrieval_confidence:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+        citation_coverage:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+        answer_completeness:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+        composite:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+
+    SourceChunkResponse:
+      type: object
+      required:
+        - chunk_id
+        - document_id
+        - text
+        - section_heading
+        - score
+        - retrieval_method
+      properties:
+        chunk_id:
+          type: string
+        document_id:
+          type: string
+        text:
+          type: string
+        section_heading:
+          type: string
+        score:
+          type: number
+          format: float
+        retrieval_method:
+          type: string
+          enum:
+            - dense
+            - sparse
+            - graph
+
+    FallbackInfoResponse:
+      type: object
+      required:
+        - found_topics
+        - not_found_topics
+        - suggested_documents
+      properties:
+        found_topics:
+          type: array
+          items:
+            type: string
+        not_found_topics:
+          type: array
+          items:
+            type: string
+        suggested_documents:
+          type: array
+          items:
+            type: string
+          maxItems: 3
+
+    IngestResponse:
+      type: object
+      required:
+        - document_id
+        - filename
+        - chunks_produced
+        - chunking_strategy
+      properties:
+        document_id:
+          type: string
+        filename:
+          type: string
+        chunks_produced:
+          type: integer
+        chunking_strategy:
+          type: string
+          enum:
+            - fixed_size
+            - recursive
+            - semantic
+            - legal_hierarchical
+
+    DocumentListResponse:
+      type: object
+      required:
+        - documents
+      properties:
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentSummary'
+
+    DocumentSummary:
+      type: object
+      required:
+        - document_id
+        - filename
+        - format
+        - ingestion_date
+        - chunks_produced
+      properties:
+        document_id:
+          type: string
+        filename:
+          type: string
+        format:
+          type: string
+        ingestion_date:
+          type: string
+          format: date-time
+        chunks_produced:
+          type: integer
+
+    AggregatedHealthResponse:
+      type: object
+      required:
+        - status
+        - services
+      properties:
+        status:
+          type: string
+          enum:
+            - healthy
+            - unhealthy
+          description: Overall gateway health status
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceHealthStatus'
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Health status (ready, not_ready, alive)
+        service:
+          type: string
+          description: Service name
+
+    ServiceHealthStatus:
+      type: object
+      required:
+        - service
+        - status
+      properties:
+        service:
+          type: string
+          description: Downstream service name
+        status:
+          type: string
+          enum:
+            - healthy
+            - unhealthy
+          description: Individual service health status
+        latency_ms:
+          oneOf:
+            - type: number
+              format: float
+            - type: 'null'
+          description: Health check latency in milliseconds (null if unreachable)
+
+    ErrorResponse:
+      type: object
+      required:
+        - error_code
+        - message
+        - correlation_id
+      properties:
+        error_code:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error description
+        correlation_id:
+          type: string
+          format: uuid
+          description: Request correlation ID
+
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "UNAUTHORIZED"
+            message: "Missing or invalid X-API-Key header"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"
+
+    Forbidden:
+      description: Request blocked by security middleware (malicious pattern detected)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "FORBIDDEN"
+            message: "Request blocked: potential SQL injection detected in request path"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"
+
+    RateLimited:
+      description: Rate limit exceeded (60 req/min/key)
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+          description: Seconds until rate limit resets
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "RATE_LIMITED"
+            message: "Rate limit exceeded: 60 requests per minute per API key"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"
+
+    ValidationError:
+      description: Request validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "VALIDATION_ERROR"
+            message: "Query must be between 1 and 2000 characters"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"
+
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "INTERNAL_ERROR"
+            message: "An unexpected error occurred"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"
+
+    DependencyUnavailable:
+      description: Downstream service unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "SERVICE_UNAVAILABLE"
+            message: "Downstream service is unreachable"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"
+
+    GatewayTimeout:
+      description: Proxy timeout exceeded (30s for queries, 60s for ingestion)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "GATEWAY_TIMEOUT"
+            message: "Request to downstream service timed out after 30 seconds"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"

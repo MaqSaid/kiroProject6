@@ -1,0 +1,318 @@
+openapi: 3.1.0
+info:
+  title: Embedding Service API
+  description: |
+    Internal Embedding Service wrapping AWS Bedrock embedding calls.
+    Provides SHA-256 caching to avoid redundant API calls and tracks token usage for cost attribution.
+  version: 1.0.0
+  contact:
+    name: Platform Team
+
+servers:
+  - url: http://embedding-service:8000
+    description: Docker Compose internal
+
+paths:
+  /embed:
+    post:
+      operationId: embedText
+      summary: Generate embedding for a single text
+      description: |
+        Computes a SHA-256 hash of the input text. Returns cached vector if found,
+        otherwise calls AWS Bedrock to generate the embedding and caches the result.
+        Returns token count for cost tracking.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbedRequest'
+            example:
+              text: "Section 45 of the Transport Infrastructure Act establishes road design standards."
+      responses:
+        '200':
+          description: Embedding generated successfully
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbedResponse'
+              example:
+                vector: [0.0123, -0.0456, 0.0789, 0.0012]
+                tokens_used: 14
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/DependencyUnavailable'
+
+  /embed/batch:
+    post:
+      operationId: embedBatch
+      summary: Generate embeddings for multiple texts
+      description: |
+        Checks the cache for each text individually.
+        Calls Bedrock only for uncached texts, caches new results,
+        and returns all vectors in the original list order.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbedBatchRequest'
+            example:
+              texts:
+                - "Section 45 establishes road design standards."
+                - "Part 3 Division 2 covers heavy vehicle access."
+      responses:
+        '200':
+          description: Batch embeddings generated successfully
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbedBatchResponse'
+              example:
+                vectors:
+                  - [0.0123, -0.0456, 0.0789, 0.0012]
+                  - [0.0321, -0.0654, 0.0987, 0.0021]
+                tokens_used: 22
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/DependencyUnavailable'
+
+  /health:
+    get:
+      operationId: healthCheck
+      summary: Bedrock connectivity check
+      description: Checks Bedrock connectivity by making a lightweight API call
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "healthy"
+                service: "embedding-service"
+        '503':
+          description: Service is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "unhealthy"
+                service: "embedding-service"
+
+  /health/ready:
+    get:
+      operationId: readinessCheck
+      summary: Readiness probe
+      description: Verifies cache is initialized and Bedrock credentials are valid
+      responses:
+        '200':
+          description: Service is ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "ready"
+                service: "embedding-service"
+        '503':
+          description: Service is not ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "not_ready"
+                service: "embedding-service"
+
+  /health/live:
+    get:
+      operationId: livenessCheck
+      summary: Liveness probe
+      description: Returns HTTP 200 if the process is running (always succeeds)
+      responses:
+        '200':
+          description: Process is alive
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "alive"
+                service: "embedding-service"
+
+  /metrics:
+    get:
+      operationId: getMetrics
+      summary: Prometheus metrics endpoint
+      description: Returns Prometheus-compatible metrics for scraping
+      responses:
+        '200':
+          description: Metrics in Prometheus exposition format
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |
+                # HELP rag_embedding_requests_total Total embedding requests
+                # TYPE rag_embedding_requests_total counter
+                rag_embedding_requests_total{type="single"} 234
+                rag_embedding_requests_total{type="batch"} 56
+                # HELP rag_token_usage_total Total tokens consumed
+                # TYPE rag_token_usage_total counter
+                rag_token_usage_total{model="bedrock"} 45230
+                # HELP rag_embedding_cache_hits_total Cache hit count
+                # TYPE rag_embedding_cache_hits_total counter
+                rag_embedding_cache_hits_total 189
+
+components:
+  parameters:
+    CorrelationId:
+      name: X-Correlation-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: Correlation ID for distributed tracing
+
+  headers:
+    CorrelationId:
+      schema:
+        type: string
+        format: uuid
+      description: Correlation ID echoed back for tracing
+
+  schemas:
+    EmbedRequest:
+      type: object
+      required:
+        - text
+      properties:
+        text:
+          type: string
+          description: Text to generate embedding for
+          maxLength: 32000
+
+    EmbedResponse:
+      type: object
+      required:
+        - vector
+        - tokens_used
+      properties:
+        vector:
+          type: array
+          items:
+            type: number
+            format: float
+          description: Embedding vector
+        tokens_used:
+          type: integer
+          description: Number of tokens consumed for cost tracking
+
+    EmbedBatchRequest:
+      type: object
+      required:
+        - texts
+      properties:
+        texts:
+          type: array
+          items:
+            type: string
+          description: List of texts to generate embeddings for
+
+    EmbedBatchResponse:
+      type: object
+      required:
+        - vectors
+        - tokens_used
+      properties:
+        vectors:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+              format: float
+          description: List of embedding vectors in original input order
+        tokens_used:
+          type: integer
+          description: Total tokens consumed across all texts
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        service:
+          type: string
+
+    ErrorResponse:
+      type: object
+      required:
+        - error_code
+        - message
+        - correlation_id
+      properties:
+        error_code:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error description
+        correlation_id:
+          type: string
+          format: uuid
+          description: Request correlation ID for tracing
+
+  responses:
+    ValidationError:
+      description: Request validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "VALIDATION_ERROR"
+            message: "Request body validation failed: text exceeds maximum token budget of 8192 tokens"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"
+
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "INTERNAL_ERROR"
+            message: "An unexpected error occurred processing the request"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"
+
+    DependencyUnavailable:
+      description: Dependency unavailable (AWS Bedrock)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "BEDROCK_UNAVAILABLE"
+            message: "AWS Bedrock embedding API is unreachable"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"

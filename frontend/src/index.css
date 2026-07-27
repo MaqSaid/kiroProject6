@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --color-confidence-high: #16a34a;
+  --color-confidence-medium: #d97706;
+  --color-confidence-low: #dc2626;
+}
+
+/* Respect prefers-reduced-motion: disable all animations and transitions */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visible focus indicator for keyboard navigation */
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}

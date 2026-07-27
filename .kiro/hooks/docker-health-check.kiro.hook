@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Docker Health Check",
+  "description": "After task execution, verify all Docker Compose services are healthy by running docker compose ps",
+  "version": "1",
+  "when": {
+    "type": "postTaskExecution"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "docker compose -f infrastructure/docker/docker-compose.yml ps --format json 2>&1 || echo Docker Compose not running",
+    "timeout": 15
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Accessibility Check for React",
+  "description": "Reminds the agent to check that generated TypeScript/React code follows accessibility patterns and uses semantic HTML",
+  "version": "1",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": [
+      "write"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "If writing a .tsx file in frontend/, verify: semantic HTML used (not div+onClick), ARIA labels on interactive elements, focus:ring classes for focus indicators, min-h-[44px] for touch targets, aria-describedby for error associations. Only flag if the file is actually a React component."
+  }
+}

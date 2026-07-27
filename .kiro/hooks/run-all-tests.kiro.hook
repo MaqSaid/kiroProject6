@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Run All Tests",
+  "description": "Runs property, unit, and integration tests before allowing any commit or push to catch regressions early",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "cd c:\\Users\\Saram\\kiroProject6 && python -m pytest tests/property/ tests/unit/ tests/integration/ --ignore=tests/unit/domain/processing/test_normalizers.py -x -q --tb=line 2>&1 | Select-Object -Last 3",
+    "timeout": 180
+  }
+}

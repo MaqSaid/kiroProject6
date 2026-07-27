@@ -9,14 +9,16 @@ from __future__ import annotations
 import json
 import shutil
 from datetime import datetime
-from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 from uuid import UUID
 
 import structlog
 
 from src.domain.models.entities import DocumentMetadata, RawDocument
 from src.domain.models.enums import DocumentFormat
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 logger = structlog.get_logger(__name__)
 
@@ -94,37 +96,45 @@ class LocalDocumentStore:
     async def store(self, document: RawDocument) -> str:
         """Store a raw document on the local filesystem.
 
-        Creates a UUID-based subdirectory containing the raw content
-        and a JSON sidecar metadata file.
-
         Args:
             document: The raw document to store.
 
         Returns:
             The document_id (string UUID) used for retrieval.
+
+        Raises:
+            OSError: If filesystem write fails.
         """
         document_id = str(document.id)
-        doc_dir = self._document_dir(document_id)
-        doc_dir.mkdir(parents=True, exist_ok=True)
 
-        # Write raw content
-        content_path = self._content_path(document_id)
-        content_path.write_bytes(document.content)
+        try:
+            doc_dir = self._document_dir(document_id)
+            doc_dir.mkdir(parents=True, exist_ok=True)
 
-        # Write metadata sidecar
-        metadata_path = self._metadata_path(document_id)
-        metadata = self._serialize_metadata(document)
-        metadata_path.write_text(json.dumps(metadata, indent=2), encoding="utf-8")
+            content_path = self._content_path(document_id)
+            content_path.write_bytes(document.content)
 
-        logger.info(
-            "local_document_store.stored",
-            document_id=document_id,
-            filename=document.filename,
-            format=document.format.value,
-            size_bytes=document.size_bytes,
-        )
+            metadata_path = self._metadata_path(document_id)
+            metadata = self._serialize_metadata(document)
+            metadata_path.write_text(json.dumps(metadata, indent=2), encoding="utf-8")
 
-        return document_id
+            logger.info(
+                "local_document_store.store.success",
+                document_id=document_id,
+                filename=document.filename,
+                format=document.format.value,
+                size_bytes=document.size_bytes,
+            )
+
+            return document_id
+
+        except OSError as e:
+            logger.error(
+                "local_document_store.store.failed",
+                error=str(e),
+                document_id=document_id,
+            )
+            raise
 
     async def retrieve(self, document_id: str) -> RawDocument:
         """Retrieve a raw document from the local filesystem.
@@ -138,23 +148,34 @@ class LocalDocumentStore:
         Raises:
             DocumentNotFoundError: If the document does not exist.
         """
-        doc_dir = self._document_dir(document_id)
-        if not doc_dir.exists():
-            logger.warning(
-                "local_document_store.not_found",
+        try:
+            doc_dir = self._document_dir(document_id)
+            if not doc_dir.exists():
+                logger.warning(
+                    "local_document_store.retrieve.not_found",
+                    document_id=document_id,
+                )
+                raise DocumentNotFoundError(document_id)
+
+            document = self._deserialize_document(document_id)
+
+            logger.info(
+                "local_document_store.retrieve.success",
+                document_id=document_id,
+                filename=document.filename,
+            )
+
+            return document
+
+        except DocumentNotFoundError:
+            raise
+        except Exception as e:
+            logger.error(
+                "local_document_store.retrieve.failed",
+                error=str(e),
                 document_id=document_id,
             )
-            raise DocumentNotFoundError(document_id)
-
-        document = self._deserialize_document(document_id)
-
-        logger.info(
-            "local_document_store.retrieved",
-            document_id=document_id,
-            filename=document.filename,
-        )
-
-        return document
+            raise
 
     async def list_documents(self, filters: Any = None) -> list[DocumentMetadata]:
         """List stored documents, optionally filtered.
@@ -165,56 +186,70 @@ class LocalDocumentStore:
         Returns:
             List of DocumentMetadata for matching documents.
         """
-        results: list[DocumentMetadata] = []
+        try:
+            results: list[DocumentMetadata] = []
 
-        if not self._base_dir.exists():
+            if not self._base_dir.exists():
+                return results
+
+            for doc_dir in sorted(self._base_dir.iterdir()):
+                if not doc_dir.is_dir():
+                    continue
+
+                metadata_path = doc_dir / "metadata.json"
+                if not metadata_path.exists():
+                    continue
+
+                try:
+                    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+                except (json.JSONDecodeError, OSError):
+                    logger.warning(
+                        "local_document_store.metadata_read_error",
+                        document_dir=str(doc_dir),
+                    )
+                    continue
+
+                doc_format = DocumentFormat(metadata["format"])
+                uploaded_at = datetime.fromisoformat(metadata["uploaded_at"])
+
+                # Apply filters if provided
+                if filters is not None:
+                    if (
+                        hasattr(filters, "format")
+                        and filters.format is not None
+                        and doc_format.value != filters.format
+                    ):
+                        continue
+                    if (
+                        hasattr(filters, "uploaded_by")
+                        and filters.uploaded_by is not None
+                        and metadata.get("uploaded_by") != filters.uploaded_by
+                    ):
+                        continue
+
+                doc_metadata = DocumentMetadata(
+                    source_path=metadata["filename"],
+                    format=doc_format,
+                    page_count=None,
+                    ingested_at=uploaded_at,
+                    chunk_count=0,
+                )
+                results.append(doc_metadata)
+
+            logger.info(
+                "local_document_store.list_documents.success",
+                total=len(results),
+                filters_applied=filters is not None,
+            )
+
             return results
 
-        for doc_dir in sorted(self._base_dir.iterdir()):
-            if not doc_dir.is_dir():
-                continue
-
-            metadata_path = doc_dir / "metadata.json"
-            if not metadata_path.exists():
-                continue
-
-            try:
-                metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
-            except (json.JSONDecodeError, OSError):
-                logger.warning(
-                    "local_document_store.metadata_read_error",
-                    document_dir=str(doc_dir),
-                )
-                continue
-
-            doc_format = DocumentFormat(metadata["format"])
-            uploaded_at = datetime.fromisoformat(metadata["uploaded_at"])
-
-            # Apply filters if provided
-            if filters is not None:
-                if hasattr(filters, "format") and filters.format is not None:
-                    if doc_format.value != filters.format:
-                        continue
-                if hasattr(filters, "uploaded_by") and filters.uploaded_by is not None:
-                    if metadata.get("uploaded_by") != filters.uploaded_by:
-                        continue
-
-            doc_metadata = DocumentMetadata(
-                source_path=metadata["filename"],
-                format=doc_format,
-                page_count=None,
-                ingested_at=uploaded_at,
-                chunk_count=0,
+        except Exception as e:
+            logger.error(
+                "local_document_store.list_documents.failed",
+                error=str(e),
             )
-            results.append(doc_metadata)
-
-        logger.info(
-            "local_document_store.listed",
-            total=len(results),
-            filters_applied=filters is not None,
-        )
-
-        return results
+            raise
 
     async def delete(self, document_id: str) -> None:
         """Delete a document and its metadata from the filesystem.
@@ -225,17 +260,28 @@ class LocalDocumentStore:
         Raises:
             DocumentNotFoundError: If the document does not exist.
         """
-        doc_dir = self._document_dir(document_id)
-        if not doc_dir.exists():
-            logger.warning(
-                "local_document_store.delete_not_found",
+        try:
+            doc_dir = self._document_dir(document_id)
+            if not doc_dir.exists():
+                logger.warning(
+                    "local_document_store.delete.not_found",
+                    document_id=document_id,
+                )
+                raise DocumentNotFoundError(document_id)
+
+            shutil.rmtree(doc_dir)
+
+            logger.info(
+                "local_document_store.delete.success",
                 document_id=document_id,
             )
-            raise DocumentNotFoundError(document_id)
 
-        shutil.rmtree(doc_dir)
-
-        logger.info(
-            "local_document_store.deleted",
-            document_id=document_id,
-        )
+        except DocumentNotFoundError:
+            raise
+        except Exception as e:
+            logger.error(
+                "local_document_store.delete.failed",
+                error=str(e),
+                document_id=document_id,
+            )
+            raise

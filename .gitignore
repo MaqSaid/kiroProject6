@@ -21,12 +21,17 @@ ENV/
 *.swp
 *.swo
 *~
+.project
+.classpath
+.settings/
 
 # Testing
 .pytest_cache/
 .coverage
 htmlcov/
 .mypy_cache/
+.hypothesis/
+.ruff_cache/
 
 # Environment variables
 .env
@@ -36,18 +41,46 @@ htmlcov/
 # OS
 .DS_Store
 Thumbs.db
+Desktop.ini
+ehthumbs.db
 
 # Node (frontend/)
 node_modules/
 frontend/node_modules/
 frontend/dist/
 frontend/.next/
+frontend/coverage/
+.eslintcache
 
-# Logs
+# Docker
 *.log
-logs/
+docker-compose.override.yml
+.docker/
 
-# Data
+# Data stores (local development)
 *.db
 *.sqlite3
 chroma_data/
+neo4j_data/
+neo4j/data/
+neo4j/logs/
+
+# Logs
+logs/
+
+# Terraform
+infrastructure/terraform/.terraform/
+infrastructure/terraform/*.tfstate
+infrastructure/terraform/*.tfstate.backup
+infrastructure/terraform/*.tfvars
+infrastructure/terraform/.terraform.lock.hcl
+
+# Service-specific build artifacts
+services/*/dist/
+services/*/.mypy_cache/
+services/*/.pytest_cache/
+services/*/.ruff_cache/
+libs/*/dist/
+libs/*/.mypy_cache/
+libs/*/.pytest_cache/
+libs/*/.ruff_cache/

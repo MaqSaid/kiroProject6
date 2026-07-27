@@ -1,0 +1,452 @@
+openapi: 3.1.0
+info:
+  title: Query Service API
+  description: |
+    Query Service hosting the RAGOrchestrator. Coordinates the agent pipeline
+    (Retrieval, Generation, Citation Verification, Evaluation) and makes
+    inter-service HTTP calls to Graph Service and Embedding Service.
+  version: 1.0.0
+  contact:
+    name: Platform Team
+
+servers:
+  - url: http://query-service:8000
+    description: Docker Compose internal
+
+paths:
+  /v1/agents/ask:
+    post:
+      operationId: agentAsk
+      summary: Full agent-orchestrated query pipeline
+      description: |
+        Routes the query through the RAGOrchestrator which coordinates
+        Retrieval Agent, Generation Agent, Citation Verification Agent,
+        and Evaluation Agent in sequence. Makes HTTP calls to Graph Service
+        for traversal and Embedding Service for vector generation.
+        Must respond within 30 seconds.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentAskRequest'
+            example:
+              query: "What are the road design standards under the Transport Infrastructure Act?"
+      responses:
+        '200':
+          description: Query processed successfully
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentAskResponse'
+              example:
+                answer: "Under the Transport Infrastructure Act 2024, Section 45, road design standards require..."
+                citations:
+                  - index: 1
+                    source_reference: "Transport Infrastructure Act 2024, Section 45(1)"
+                    claim: "Road design standards require minimum lane widths of 3.5 metres"
+                    verification_status: "verified"
+                confidence_scores:
+                  retrieval_confidence: 0.85
+                  citation_coverage: 0.90
+                  answer_completeness: 0.80
+                  composite: 0.86
+                source_chunks:
+                  - chunk_id: "chunk-abc-001"
+                    document_id: "doc-001"
+                    text: "Section 45(1) Road design standards..."
+                    section_heading: "Section 45 - Road Design Standards"
+                    score: 0.92
+                    retrieval_method: "dense"
+                is_fallback: false
+                fallback_info: null
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/DependencyUnavailable'
+
+  /v1/ask:
+    post:
+      operationId: directAsk
+      summary: Direct retrieval-only query
+      description: |
+        Performs retrieval without the full agent pipeline.
+        Retained for backward compatibility alongside the agent-orchestrated endpoint.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentAskRequest'
+            example:
+              query: "What penalties exist for exceeding vehicle weight limits?"
+      responses:
+        '200':
+          description: Query processed successfully
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentAskResponse'
+              example:
+                answer: "Under the Heavy Vehicle Access Regulation, penalties for exceeding weight limits include..."
+                citations:
+                  - index: 1
+                    source_reference: "Heavy Vehicle Access Regulation, Section 12(3)"
+                    claim: "Fines up to $10,000 for first offence"
+                    verification_status: "verified"
+                confidence_scores:
+                  retrieval_confidence: 0.75
+                  citation_coverage: 0.80
+                  answer_completeness: 0.70
+                  composite: 0.76
+                source_chunks:
+                  - chunk_id: "chunk-def-002"
+                    document_id: "doc-003"
+                    text: "Section 12(3) Penalties for overloading..."
+                    section_heading: "Section 12 - Weight Penalties"
+                    score: 0.88
+                    retrieval_method: "sparse"
+                is_fallback: false
+                fallback_info: null
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/DependencyUnavailable'
+
+  /health:
+    get:
+      operationId: healthCheck
+      summary: Basic health check
+      description: Checks that the service is running and Orchestrator is initialized
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "healthy"
+                service: "query-service"
+        '503':
+          description: Service is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "unhealthy"
+                service: "query-service"
+
+  /health/ready:
+    get:
+      operationId: readinessCheck
+      summary: Readiness probe
+      description: |
+        Verifies the Orchestrator is initialized, all agents have valid prompts,
+        and downstream services (Embedding Service, Graph Service) are reachable.
+      responses:
+        '200':
+          description: Service is ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "ready"
+                service: "query-service"
+        '503':
+          description: Service is not ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "not_ready"
+                service: "query-service"
+
+  /health/live:
+    get:
+      operationId: livenessCheck
+      summary: Liveness probe
+      description: Returns HTTP 200 if the process is running (always succeeds)
+      responses:
+        '200':
+          description: Process is alive
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: "alive"
+                service: "query-service"
+
+  /metrics:
+    get:
+      operationId: getMetrics
+      summary: Prometheus metrics endpoint
+      description: Returns Prometheus-compatible metrics for scraping
+      responses:
+        '200':
+          description: Metrics in Prometheus exposition format
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |
+                # HELP rag_retrieval_duration_seconds Retrieval operation duration
+                # TYPE rag_retrieval_duration_seconds histogram
+                rag_retrieval_duration_seconds_bucket{method="dense",le="0.5"} 120
+                # HELP rag_generation_duration_seconds Answer generation duration
+                # TYPE rag_generation_duration_seconds histogram
+                rag_generation_duration_seconds_bucket{model="nova-pro",le="2.0"} 95
+                # HELP rag_confidence_score Composite confidence scores
+                # TYPE rag_confidence_score histogram
+                rag_confidence_score_bucket{le="0.4"} 12
+
+components:
+  parameters:
+    CorrelationId:
+      name: X-Correlation-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: Correlation ID for distributed tracing
+
+  headers:
+    CorrelationId:
+      schema:
+        type: string
+        format: uuid
+      description: Correlation ID echoed back for tracing
+
+  schemas:
+    AgentAskRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          description: Natural language query about legislation (1-2000 characters)
+
+    AgentAskResponse:
+      type: object
+      required:
+        - answer
+        - citations
+        - confidence_scores
+        - source_chunks
+        - is_fallback
+      properties:
+        answer:
+          type: string
+          description: Generated answer text (sanitized, no HTML/JS/control chars)
+        citations:
+          type: array
+          items:
+            $ref: '#/components/schemas/CitationResponse'
+          description: List of citations with verification status
+        confidence_scores:
+          $ref: '#/components/schemas/ConfidenceScoreResponse'
+        source_chunks:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceChunkResponse'
+          description: Retrieved source chunks used for answer generation
+        is_fallback:
+          type: boolean
+          description: True when composite confidence is below 0.4
+        fallback_info:
+          oneOf:
+            - $ref: '#/components/schemas/FallbackInfoResponse'
+            - type: 'null'
+          description: Present only when is_fallback is true
+
+    CitationResponse:
+      type: object
+      required:
+        - index
+        - source_reference
+        - claim
+        - verification_status
+      properties:
+        index:
+          type: integer
+          description: Citation index number (1-based)
+        source_reference:
+          type: string
+          description: "Formatted citation (e.g., 'Transport Infrastructure Act 2024, Section 45(1)')"
+        claim:
+          type: string
+          description: The factual claim this citation supports
+        verification_status:
+          type: string
+          enum:
+            - verified
+            - unsupported
+            - partial
+          description: Whether the citation is verified against source chunks
+
+    ConfidenceScoreResponse:
+      type: object
+      required:
+        - retrieval_confidence
+        - citation_coverage
+        - answer_completeness
+        - composite
+      properties:
+        retrieval_confidence:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+          description: Maximum reranked score normalized to [0.0, 1.0]
+        citation_coverage:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+          description: Verified citations / total factual statements
+        answer_completeness:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+          description: Addressed concepts / total query concepts
+        composite:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+          description: "0.35 * retrieval + 0.40 * citation + 0.25 * completeness (rounded to 2 dp)"
+
+    SourceChunkResponse:
+      type: object
+      required:
+        - chunk_id
+        - document_id
+        - text
+        - section_heading
+        - score
+        - retrieval_method
+      properties:
+        chunk_id:
+          type: string
+        document_id:
+          type: string
+        text:
+          type: string
+        section_heading:
+          type: string
+        score:
+          type: number
+          format: float
+        retrieval_method:
+          type: string
+          enum:
+            - dense
+            - sparse
+            - graph
+
+    FallbackInfoResponse:
+      type: object
+      required:
+        - found_topics
+        - not_found_topics
+        - suggested_documents
+      properties:
+        found_topics:
+          type: array
+          items:
+            type: string
+          description: Topics where partial information was found
+        not_found_topics:
+          type: array
+          items:
+            type: string
+          description: Topics where no information was found
+        suggested_documents:
+          type: array
+          items:
+            type: string
+          maxItems: 3
+          description: Up to 3 suggested documents for manual consultation
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        service:
+          type: string
+
+    ErrorResponse:
+      type: object
+      required:
+        - error_code
+        - message
+        - correlation_id
+      properties:
+        error_code:
+          type: string
+          description: Machine-readable error code identifying the failing agent or service
+        message:
+          type: string
+          description: Human-readable error description
+        correlation_id:
+          type: string
+          format: uuid
+          description: Request correlation ID matching X-Correlation-ID header
+
+  responses:
+    ValidationError:
+      description: Request validation failed (missing/empty query or exceeds 2000 chars)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "VALIDATION_ERROR"
+            message: "Query must be between 1 and 2000 characters"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"
+
+    InternalError:
+      description: Internal server error (agent failure after retries)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "GENERATION_AGENT_FAILURE"
+            message: "Generation Agent failed to produce a response after retries"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"
+
+    DependencyUnavailable:
+      description: Critical dependency unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error_code: "EMBEDDING_SERVICE_UNAVAILABLE"
+            message: "Embedding Service circuit breaker is open; estimated recovery in 30 seconds"
+            correlation_id: "550e8400-e29b-41d4-a716-446655440000"

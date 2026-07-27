@@ -1,0 +1,1234 @@
+[
+  {
+    "id": "golden-001",
+    "question": "What are the default speed limits specified under Section 45 of the Road Safety Act?",
+    "expected_answer": "Section 45 of the Road Safety Act 2024 establishes default speed limits of 50 km/h in built-up areas and 100 km/h on open roads unless otherwise signposted. Subsection 45(2) allows local authorities to vary these limits where traffic conditions or road design warrant a reduction.",
+    "expected_entities": [
+      "Road Safety Act",
+      "Section 45"
+    ],
+    "expected_citations": [
+      "Road Safety Act 2024, Section 45(1)",
+      "Road Safety Act 2024, Section 45(2)"
+    ],
+    "difficulty": "simple",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Road Safety Act 2024",
+      "topic": "speed limits",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-002",
+    "question": "What penalties apply for driving under the influence under the Road Safety Act?",
+    "expected_answer": "Under Section 62, a first offence of driving with a BAC exceeding 0.05 carries a maximum fine of 20 penalty units and licence suspension for up to 12 months. Repeat offences under Section 62(3) escalate to imprisonment of up to 2 years.",
+    "expected_entities": [
+      "Road Safety Act",
+      "Section 62",
+      "BAC"
+    ],
+    "expected_citations": [
+      "Road Safety Act 2024, Section 62(1)",
+      "Road Safety Act 2024, Section 62(3)"
+    ],
+    "difficulty": "simple",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Road Safety Act 2024",
+      "topic": "drink driving penalties",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-003",
+    "question": "What are the mandatory safety requirements for scaffolding under the Building and Construction regulations?",
+    "expected_answer": "Regulation 157 requires all scaffolding above 4 metres to be erected by a licensed scaffolder and inspected every 30 days. Load-bearing capacity must withstand 4 times the maximum load per Schedule 5.",
+    "expected_entities": [
+      "Building and Construction Regulations",
+      "Regulation 157",
+      "Schedule 5"
+    ],
+    "expected_citations": [
+      "Building and Construction Regulations 2024, Regulation 157(1)",
+      "Building and Construction Regulations 2024, Schedule 5"
+    ],
+    "difficulty": "simple",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Building and Construction Regulations 2024",
+      "topic": "scaffolding safety",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-004",
+    "question": "What are an employer's primary duties under the Workplace Health and Safety Act?",
+    "expected_answer": "Section 19 imposes a primary duty on PCBUs to ensure, so far as is reasonably practicable, the health and safety of workers. This includes providing safe systems of work, adequate training, and maintaining the workplace free of health risks.",
+    "expected_entities": [
+      "Workplace Health and Safety Act",
+      "Section 19",
+      "primary duty"
+    ],
+    "expected_citations": [
+      "Workplace Health and Safety Act 2024, Section 19(1)",
+      "Workplace Health and Safety Act 2024, Section 19(3)"
+    ],
+    "difficulty": "simple",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Workplace Health and Safety Act 2024",
+      "topic": "employer duties",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-005",
+    "question": "What rights do individuals have to access personal information under the Privacy Act?",
+    "expected_answer": "APP 12 gives individuals the right to request access to personal information held by an APP entity. The entity must respond within 30 days and provide access in the manner requested unless unreasonable or impracticable.",
+    "expected_entities": [
+      "Privacy Act",
+      "Australian Privacy Principle 12",
+      "APP entity"
+    ],
+    "expected_citations": [
+      "Privacy Act 2024, Schedule 1, APP 12.1",
+      "Privacy Act 2024, Schedule 1, APP 12.4"
+    ],
+    "difficulty": "simple",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Privacy Act 2024",
+      "topic": "access to personal information",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-006",
+    "question": "What emission standards does the Environmental Protection Act set for industrial facilities?",
+    "expected_answer": "Part 5 Section 95 requires holders of environmental authorities to comply with emission limits in Schedule 2, which sets maximum concentrations for particulate matter, nitrogen oxides, and volatile organic compounds based on facility category.",
+    "expected_entities": [
+      "Environmental Protection Act",
+      "Part 5",
+      "Section 95",
+      "Schedule 2"
+    ],
+    "expected_citations": [
+      "Environmental Protection Act 2024, Part 5, Section 95(1)",
+      "Environmental Protection Act 2024, Schedule 2"
+    ],
+    "difficulty": "simple",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Environmental Protection Act 2024",
+      "topic": "emission standards",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-007",
+    "question": "What are the Commissioner's powers of investigation under the Taxation Administration Act?",
+    "expected_answer": "Section 353-10 grants the Commissioner broad powers to access premises, inspect documents, and require any person to provide information or attend for examination. These powers are subject to safeguards in Division 353 including judicial review.",
+    "expected_entities": [
+      "Taxation Administration Act",
+      "Commissioner",
+      "Section 353-10",
+      "Division 353"
+    ],
+    "expected_citations": [
+      "Taxation Administration Act 2024, Section 353-10(1)",
+      "Taxation Administration Act 2024, Division 353"
+    ],
+    "difficulty": "simple",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Taxation Administration Act 2024",
+      "topic": "commissioner powers",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-008",
+    "question": "How does the Transport Infrastructure Act define a declared road?",
+    "expected_answer": "Section 12 defines a declared road as any road corridor gazetted by the Minister for transport purposes including arterial roads, motorways, and ancillary infrastructure. The declaration is made by gazette notice and takes effect on the date specified.",
+    "expected_entities": [
+      "Transport Infrastructure Act",
+      "declared road",
+      "Section 12"
+    ],
+    "expected_citations": [
+      "Transport Infrastructure Act 2024, Section 12(1)",
+      "Transport Infrastructure Act 2024, Section 12(2)"
+    ],
+    "difficulty": "simple",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Transport Infrastructure Act 2024",
+      "topic": "declared road definition",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-009",
+    "question": "What constitutes a notifiable incident under the Workplace Health and Safety Act?",
+    "expected_answer": "Section 35 defines a notifiable incident as the death of a person, a serious injury or illness requiring immediate hospital treatment, or a dangerous incident as prescribed in Regulation 670. The PCBU must notify the regulator immediately by the fastest available means.",
+    "expected_entities": [
+      "Workplace Health and Safety Act",
+      "Section 35",
+      "notifiable incident",
+      "Regulation 670"
+    ],
+    "expected_citations": [
+      "Workplace Health and Safety Act 2024, Section 35(1)",
+      "Workplace Health and Safety Act 2024, Section 35(2)"
+    ],
+    "difficulty": "simple",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Workplace Health and Safety Act 2024",
+      "topic": "notifiable incidents",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-010",
+    "question": "What are the elements of the offence of fraud under the Criminal Code?",
+    "expected_answer": "Section 134.1 defines fraud as dishonestly obtaining a financial advantage from a Commonwealth entity. The prosecution must prove the defendant acted dishonestly, obtained a financial advantage, and knew or believed they were not entitled to that advantage.",
+    "expected_entities": [
+      "Criminal Code",
+      "Section 134.1",
+      "fraud",
+      "financial advantage"
+    ],
+    "expected_citations": [
+      "Criminal Code 2024, Section 134.1(1)",
+      "Criminal Code 2024, Section 134.1(3)"
+    ],
+    "difficulty": "simple",
+    "category": "procedural",
+    "metadata": {
+      "legislation": "Criminal Code 2024",
+      "topic": "fraud offences",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-011",
+    "question": "How are parenting orders determined under the Family Law Act?",
+    "expected_answer": "Section 60CA establishes that the best interests of the child are the paramount consideration. Section 60CC sets out factors the court must consider, including the benefit of a meaningful relationship with both parents and the need to protect the child from harm.",
+    "expected_entities": [
+      "Family Law Act",
+      "Section 60CA",
+      "Section 60CC",
+      "parenting orders"
+    ],
+    "expected_citations": [
+      "Family Law Act 2024, Section 60CA",
+      "Family Law Act 2024, Section 60CC(2)"
+    ],
+    "difficulty": "simple",
+    "category": "procedural",
+    "metadata": {
+      "legislation": "Family Law Act 2024",
+      "topic": "parenting orders",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-012",
+    "question": "What is the procedure for lodging a tax return under the Taxation Administration Act?",
+    "expected_answer": "Section 388-55 requires individuals and entities to lodge returns by the due date specified in the taxation law. Self-assessment applies under Division 166, where the Commissioner is taken to have made an assessment on the day the return is lodged.",
+    "expected_entities": [
+      "Taxation Administration Act",
+      "Section 388-55",
+      "Division 166",
+      "self-assessment"
+    ],
+    "expected_citations": [
+      "Taxation Administration Act 2024, Section 388-55(1)",
+      "Taxation Administration Act 2024, Division 166"
+    ],
+    "difficulty": "simple",
+    "category": "procedural",
+    "metadata": {
+      "legislation": "Taxation Administration Act 2024",
+      "topic": "tax return lodgement",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-013",
+    "question": "What are the requirements for obtaining a building permit for residential construction?",
+    "expected_answer": "Part 3 requires applicants to submit plans certified by a registered building surveyor, evidence of insurance, and an energy efficiency assessment under Regulation 45. The building authority must issue or refuse the permit within 30 business days.",
+    "expected_entities": [
+      "Building and Construction Regulations",
+      "Part 3",
+      "Regulation 45",
+      "building permit"
+    ],
+    "expected_citations": [
+      "Building and Construction Regulations 2024, Part 3, Regulation 42",
+      "Building and Construction Regulations 2024, Regulation 45"
+    ],
+    "difficulty": "simple",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "Building and Construction Regulations 2024",
+      "topic": "building permits",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-014",
+    "question": "What is the maximum penalty for illegal dumping under the Environmental Protection Act?",
+    "expected_answer": "Section 120 provides a maximum penalty of 6250 penalty units for a corporation that unlawfully deposits a contaminant in waters. For individuals, Section 120(2) sets the maximum at 1250 penalty units or 5 years imprisonment.",
+    "expected_entities": [
+      "Environmental Protection Act",
+      "Section 120",
+      "illegal dumping",
+      "penalty units"
+    ],
+    "expected_citations": [
+      "Environmental Protection Act 2024, Section 120(1)",
+      "Environmental Protection Act 2024, Section 120(2)"
+    ],
+    "difficulty": "moderate",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Environmental Protection Act 2024",
+      "topic": "illegal dumping penalties",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-015",
+    "question": "What defences are available for strict liability offences under the Criminal Code?",
+    "expected_answer": "Section 6.1 provides that strict liability does not require proof of fault but the defence of honest and reasonable mistake of fact remains available under Section 9.2. Section 10.1 provides a general defence of intervening conduct the defendant could not reasonably foresee.",
+    "expected_entities": [
+      "Criminal Code",
+      "Section 6.1",
+      "Section 9.2",
+      "Section 10.1",
+      "strict liability"
+    ],
+    "expected_citations": [
+      "Criminal Code 2024, Section 6.1(1)",
+      "Criminal Code 2024, Section 9.2(1)",
+      "Criminal Code 2024, Section 10.1"
+    ],
+    "difficulty": "moderate",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "Criminal Code 2024",
+      "topic": "defences to strict liability",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-016",
+    "question": "What constitutes a breach of directors' duties under the Corporations Act?",
+    "expected_answer": "Section 180 requires directors to exercise powers with the care and diligence a reasonable person would exercise. A breach occurs when a director fails to act in good faith (Section 181) or uses their position for personal advantage (Section 182).",
+    "expected_entities": [
+      "Corporations Act",
+      "Section 180",
+      "Section 181",
+      "Section 182",
+      "directors duties"
+    ],
+    "expected_citations": [
+      "Corporations Act 2024, Section 180(1)",
+      "Corporations Act 2024, Section 181(1)",
+      "Corporations Act 2024, Section 182(1)"
+    ],
+    "difficulty": "moderate",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "Corporations Act 2024",
+      "topic": "directors duties",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-017",
+    "question": "What environmental impact assessment requirements apply to new mining projects?",
+    "expected_answer": "Part 4 requires new mining projects to submit a comprehensive Environmental Impact Statement addressing biodiversity, water resources, and community impact. Section 78 mandates a 60-day public consultation period before the Minister may grant approval.",
+    "expected_entities": [
+      "Environmental Protection Act",
+      "Environmental Impact Statement",
+      "Part 4",
+      "Section 78"
+    ],
+    "expected_citations": [
+      "Environmental Protection Act 2024, Part 4, Section 78(1)",
+      "Environmental Protection Act 2024, Part 4, Section 78(3)"
+    ],
+    "difficulty": "moderate",
+    "category": "procedural",
+    "metadata": {
+      "legislation": "Environmental Protection Act 2024",
+      "topic": "environmental impact assessment",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-018",
+    "question": "What process must a company follow to register a charge over assets under the Corporations Act?",
+    "expected_answer": "Section 263 requires a company to lodge notice of charge with ASIC within 20 business days of creation. The notice must contain particulars of charged property, amount secured, and identity of chargee. Failure to register renders the charge void against a liquidator.",
+    "expected_entities": [
+      "Corporations Act",
+      "Section 263",
+      "ASIC",
+      "charge"
+    ],
+    "expected_citations": [
+      "Corporations Act 2024, Section 263(1)",
+      "Corporations Act 2024, Section 263(3)",
+      "Corporations Act 2024, Section 266"
+    ],
+    "difficulty": "moderate",
+    "category": "procedural",
+    "metadata": {
+      "legislation": "Corporations Act 2024",
+      "topic": "registration of charges",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-019",
+    "question": "What is the procedure for appealing a tax assessment under the Taxation Administration Act?",
+    "expected_answer": "Division 155 requires taxpayers to first lodge an objection in writing within 60 days of the assessment notice. If disallowed, Section 155-60 permits application to the AAT or Federal Court within 60 days of the objection decision.",
+    "expected_entities": [
+      "Taxation Administration Act",
+      "Division 155",
+      "Section 155-60",
+      "Administrative Appeals Tribunal"
+    ],
+    "expected_citations": [
+      "Taxation Administration Act 2024, Division 155, Section 155-15",
+      "Taxation Administration Act 2024, Section 155-60(1)"
+    ],
+    "difficulty": "moderate",
+    "category": "procedural",
+    "metadata": {
+      "legislation": "Taxation Administration Act 2024",
+      "topic": "tax appeals",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-020",
+    "question": "How does the Transport Infrastructure Act regulate toll road concessions?",
+    "expected_answer": "Part 6 Division 2 establishes the framework for toll road concessions. Section 92 requires the concession agreement to specify toll rates, adjustment mechanisms, and handback conditions. The Minister must table each agreement in Parliament within 14 sitting days under Section 95.",
+    "expected_entities": [
+      "Transport Infrastructure Act",
+      "Part 6",
+      "Section 92",
+      "Section 95",
+      "toll road concessions"
+    ],
+    "expected_citations": [
+      "Transport Infrastructure Act 2024, Part 6, Section 92(1)",
+      "Transport Infrastructure Act 2024, Section 95"
+    ],
+    "difficulty": "simple",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Transport Infrastructure Act 2024",
+      "topic": "toll road concessions",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-021",
+    "question": "What powers does the Transport Infrastructure Act grant for compulsory land acquisition?",
+    "expected_answer": "Division 3 grants compulsory acquisition powers under Section 39, requiring fair market value compensation and a 90-day negotiation period before forced acquisition. Section 41 provides for hardship acquisition where the owner's property is significantly affected but not required.",
+    "expected_entities": [
+      "Transport Infrastructure Act",
+      "Section 39",
+      "Section 41",
+      "compulsory acquisition"
+    ],
+    "expected_citations": [
+      "Transport Infrastructure Act 2024, Division 3, Section 39(1)",
+      "Transport Infrastructure Act 2024, Section 41"
+    ],
+    "difficulty": "moderate",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "Transport Infrastructure Act 2024",
+      "topic": "land acquisition",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-022",
+    "question": "How does the Privacy Act regulate cross-border disclosure of personal information?",
+    "expected_answer": "APP 8 requires an APP entity to take reasonable steps to ensure an overseas recipient handles personal information consistently with the APPs. Section 16C makes the disclosing entity accountable for breaches by the overseas recipient unless an exception in Section 16C(2) applies.",
+    "expected_entities": [
+      "Privacy Act",
+      "APP 8",
+      "Section 16C",
+      "cross-border disclosure"
+    ],
+    "expected_citations": [
+      "Privacy Act 2024, Schedule 1, APP 8.1",
+      "Privacy Act 2024, Section 16C(1)",
+      "Privacy Act 2024, Section 16C(2)"
+    ],
+    "difficulty": "moderate",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "Privacy Act 2024",
+      "topic": "cross-border data transfers",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-023",
+    "question": "What worker consultation requirements exist under the Workplace Health and Safety Act?",
+    "expected_answer": "Section 47 requires a PCBU to consult with workers who carry out work for the business and are directly affected by health and safety matters. Section 48 specifies consultation must include sharing information, giving reasonable opportunity to express views, and taking views into account.",
+    "expected_entities": [
+      "Workplace Health and Safety Act",
+      "Section 47",
+      "Section 48",
+      "consultation"
+    ],
+    "expected_citations": [
+      "Workplace Health and Safety Act 2024, Section 47(1)",
+      "Workplace Health and Safety Act 2024, Section 48"
+    ],
+    "difficulty": "moderate",
+    "category": "procedural",
+    "metadata": {
+      "legislation": "Workplace Health and Safety Act 2024",
+      "topic": "worker consultation",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-024",
+    "question": "What are the grounds for property settlement under the Family Law Act?",
+    "expected_answer": "Section 79 empowers the court to alter property interests if satisfied it is just and equitable. The court applies a four-step process: identifying the asset pool, assessing contributions (Section 79(4)), evaluating future needs (Section 75(2) factors), and determining overall justice and equity.",
+    "expected_entities": [
+      "Family Law Act",
+      "Section 79",
+      "Section 75(2)",
+      "property settlement"
+    ],
+    "expected_citations": [
+      "Family Law Act 2024, Section 79(1)",
+      "Family Law Act 2024, Section 79(4)",
+      "Family Law Act 2024, Section 75(2)"
+    ],
+    "difficulty": "moderate",
+    "category": "procedural",
+    "metadata": {
+      "legislation": "Family Law Act 2024",
+      "topic": "property settlement",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-025",
+    "question": "How does the Criminal Code address computer offences?",
+    "expected_answer": "Division 477 creates offences for unauthorised access to and modification of restricted data. Section 477.1 criminalises unauthorised access with a maximum penalty of 10 years imprisonment. Section 477.3 addresses unauthorised impairment of electronic communications.",
+    "expected_entities": [
+      "Criminal Code",
+      "Division 477",
+      "Section 477.1",
+      "Section 477.3",
+      "computer offences"
+    ],
+    "expected_citations": [
+      "Criminal Code 2024, Section 477.1(1)",
+      "Criminal Code 2024, Section 477.3(1)"
+    ],
+    "difficulty": "simple",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Criminal Code 2024",
+      "topic": "computer offences",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-026",
+    "question": "What are the fire safety requirements for commercial buildings under the Building and Construction regulations?",
+    "expected_answer": "Part 7 mandates fire safety systems including sprinklers in buildings over 25 metres (Regulation 210), emergency lighting and exit signage (Regulation 215), and annual fire safety certification by a registered practitioner under Regulation 220.",
+    "expected_entities": [
+      "Building and Construction Regulations",
+      "Part 7",
+      "Regulation 210",
+      "Regulation 215",
+      "Regulation 220"
+    ],
+    "expected_citations": [
+      "Building and Construction Regulations 2024, Part 7, Regulation 210",
+      "Building and Construction Regulations 2024, Regulation 215",
+      "Building and Construction Regulations 2024, Regulation 220"
+    ],
+    "difficulty": "moderate",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Building and Construction Regulations 2024",
+      "topic": "fire safety",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-027",
+    "question": "What reporting obligations exist for continuous disclosure under the Corporations Act?",
+    "expected_answer": "Section 674 requires listed entities to immediately notify ASX of information a reasonable person would expect to have a material effect on share price. Section 674A provides a defence where information is subject to a confidentiality agreement.",
+    "expected_entities": [
+      "Corporations Act",
+      "Section 674",
+      "Section 674A",
+      "continuous disclosure",
+      "ASX"
+    ],
+    "expected_citations": [
+      "Corporations Act 2024, Section 674(2)",
+      "Corporations Act 2024, Section 674A"
+    ],
+    "difficulty": "moderate",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "Corporations Act 2024",
+      "topic": "continuous disclosure",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-028",
+    "question": "What powers does the Environmental Protection Act grant for emergency environmental directions?",
+    "expected_answer": "Section 130 empowers the administering authority to issue emergency directions where environmental harm is occurring or imminent. The direction may require cessation of activity, remediation, or monitoring. Non-compliance carries penalties of up to 4500 penalty units.",
+    "expected_entities": [
+      "Environmental Protection Act",
+      "Section 130",
+      "emergency directions"
+    ],
+    "expected_citations": [
+      "Environmental Protection Act 2024, Section 130(1)",
+      "Environmental Protection Act 2024, Section 130(5)"
+    ],
+    "difficulty": "moderate",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "Environmental Protection Act 2024",
+      "topic": "emergency directions",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-029",
+    "question": "How does the Road Safety Act regulate the use of mobile phones while driving?",
+    "expected_answer": "Section 52 prohibits use of hand-held mobile phones while driving or stationary but not parked. Section 52(3) provides exceptions for emergency calls to 000 and use of GPS navigation where the device is in a cradle affixed to the vehicle.",
+    "expected_entities": [
+      "Road Safety Act",
+      "Section 52",
+      "mobile phones"
+    ],
+    "expected_citations": [
+      "Road Safety Act 2024, Section 52(1)",
+      "Road Safety Act 2024, Section 52(3)"
+    ],
+    "difficulty": "moderate",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "Road Safety Act 2024",
+      "topic": "mobile phone use while driving",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-030",
+    "question": "What are the obligations for handling sensitive information under the Privacy Act?",
+    "expected_answer": "APP 3.3 prohibits collection of sensitive information unless the individual consents and it is reasonably necessary for the entity's functions. Section 6 defines sensitive information to include health, racial origin, political opinions, religious beliefs, sexual orientation, and biometric data.",
+    "expected_entities": [
+      "Privacy Act",
+      "APP 3.3",
+      "Section 6",
+      "sensitive information"
+    ],
+    "expected_citations": [
+      "Privacy Act 2024, Schedule 1, APP 3.3",
+      "Privacy Act 2024, Section 6(1)"
+    ],
+    "difficulty": "moderate",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "Privacy Act 2024",
+      "topic": "sensitive information handling",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-031",
+    "question": "Compare the notification requirements for data breaches under the Privacy Act with incident reporting under the Workplace Health and Safety Act.",
+    "expected_answer": "The Privacy Act 2024 requires notification to the OAIC and affected individuals within 30 days of becoming aware of an eligible data breach under Section 26WE. The WHS Act requires immediate notification to the regulator of notifiable incidents under Section 38, with preservation of the incident site for at least 24 hours.",
+    "expected_entities": [
+      "Privacy Act",
+      "Workplace Health and Safety Act",
+      "OAIC",
+      "Section 26WE",
+      "Section 38"
+    ],
+    "expected_citations": [
+      "Privacy Act 2024, Section 26WE(1)",
+      "Workplace Health and Safety Act 2024, Section 38(1)",
+      "Workplace Health and Safety Act 2024, Section 38(4)"
+    ],
+    "difficulty": "complex",
+    "category": "comparative",
+    "metadata": {
+      "legislation": "Privacy Act 2024",
+      "topic": "breach notification comparison",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-032",
+    "question": "How do penalty provisions for environmental offences compare between the Environmental Protection Act and the Criminal Code?",
+    "expected_answer": "The Environmental Protection Act Section 160 imposes civil penalties of up to 10000 penalty units for corporations causing serious environmental harm. The Criminal Code Section 145.4 separately criminalises deliberate environmental damage affecting Commonwealth land with imprisonment of up to 7 years.",
+    "expected_entities": [
+      "Environmental Protection Act",
+      "Criminal Code",
+      "Section 160",
+      "Section 145.4"
+    ],
+    "expected_citations": [
+      "Environmental Protection Act 2024, Section 160(1)",
+      "Criminal Code 2024, Section 145.4(1)"
+    ],
+    "difficulty": "complex",
+    "category": "comparative",
+    "metadata": {
+      "legislation": "Environmental Protection Act 2024",
+      "topic": "penalty comparison",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-033",
+    "question": "If a transport corridor passes through land with endangered species, how do the Transport Infrastructure Act and Environmental Protection Act interact?",
+    "expected_answer": "Neither Act explicitly overrides the other. Section 42 of the Transport Infrastructure Act requires the chief executive to obtain environmental approvals before construction. Section 82 of the Environmental Protection Act allows the Minister to impose conditions or refuse approval where significant impact on endangered species is demonstrated.",
+    "expected_entities": [
+      "Transport Infrastructure Act",
+      "Environmental Protection Act",
+      "Section 42",
+      "Section 82",
+      "endangered species"
+    ],
+    "expected_citations": [
+      "Transport Infrastructure Act 2024, Section 42(1)",
+      "Environmental Protection Act 2024, Section 82(1)",
+      "Environmental Protection Act 2024, Section 82(3)"
+    ],
+    "difficulty": "complex",
+    "category": "comparative",
+    "metadata": {
+      "legislation": "Transport Infrastructure Act 2024",
+      "topic": "legislative conflict resolution",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-034",
+    "question": "How does the Family Law Act interact with the Privacy Act when one party seeks the other's financial records during property settlement?",
+    "expected_answer": "Section 79A of the Family Law Act grants the Family Court power to order disclosure of financial information. This overrides access limitations in APP 12 through Section 6.2(e) of the Privacy Act which exempts disclosures required by court order from normal restrictions.",
+    "expected_entities": [
+      "Family Law Act",
+      "Privacy Act",
+      "Section 79A",
+      "APP 12",
+      "property settlement"
+    ],
+    "expected_citations": [
+      "Family Law Act 2024, Section 79A(1)",
+      "Privacy Act 2024, Section 6.2(e)",
+      "Privacy Act 2024, Schedule 1, APP 12"
+    ],
+    "difficulty": "complex",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "Family Law Act 2024",
+      "topic": "privacy and family law interaction",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-035",
+    "question": "Compare the corporate liability provisions under the Criminal Code with officer duty provisions under the Workplace Health and Safety Act.",
+    "expected_answer": "Part 2.5 of the Criminal Code attributes criminal responsibility to corporations through agent conduct (Section 12.1) and organisational culture (Section 12.3). The WHS Act Section 27 imposes a positive due diligence duty on officers personally, creating direct rather than attributed liability.",
+    "expected_entities": [
+      "Criminal Code",
+      "Workplace Health and Safety Act",
+      "Part 2.5",
+      "Section 12.1",
+      "Section 12.3",
+      "Section 27"
+    ],
+    "expected_citations": [
+      "Criminal Code 2024, Part 2.5, Section 12.1",
+      "Criminal Code 2024, Section 12.3",
+      "Workplace Health and Safety Act 2024, Section 27(1)"
+    ],
+    "difficulty": "complex",
+    "category": "comparative",
+    "metadata": {
+      "legislation": "Criminal Code 2024",
+      "topic": "corporate liability comparison",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-036",
+    "question": "How do the Corporations Act insolvent trading provisions interact with the Taxation Administration Act's director penalty notice regime?",
+    "expected_answer": "Section 588G of the Corporations Act prohibits directors from incurring debts when insolvent. Division 269 of the Taxation Administration Act separately makes directors personally liable for unpaid company PAYG and superannuation via director penalty notices. Both create parallel personal liability but with different defences and time limits.",
+    "expected_entities": [
+      "Corporations Act",
+      "Taxation Administration Act",
+      "Section 588G",
+      "Division 269",
+      "director penalty notice"
+    ],
+    "expected_citations": [
+      "Corporations Act 2024, Section 588G(1)",
+      "Taxation Administration Act 2024, Division 269, Section 269-15"
+    ],
+    "difficulty": "complex",
+    "category": "comparative",
+    "metadata": {
+      "legislation": "Corporations Act 2024",
+      "topic": "director liability interaction",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-037",
+    "question": "Compare the building approval pathways for projects requiring both Building and Construction regulation compliance and Environmental Protection Act approval.",
+    "expected_answer": "Building and Construction Regulations Part 3 requires a building permit from the relevant building authority, while the Environmental Protection Act Part 4 requires a separate environmental authority for activities with environmental impact. Section 83 of the EPA prohibits commencing activities without environmental authority, creating a dual-approval pathway.",
+    "expected_entities": [
+      "Building and Construction Regulations",
+      "Environmental Protection Act",
+      "Part 3",
+      "Part 4",
+      "Section 83"
+    ],
+    "expected_citations": [
+      "Building and Construction Regulations 2024, Part 3",
+      "Environmental Protection Act 2024, Part 4, Section 83(1)"
+    ],
+    "difficulty": "complex",
+    "category": "comparative",
+    "metadata": {
+      "legislation": "Building and Construction Regulations 2024",
+      "topic": "dual approval pathways",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-038",
+    "question": "Analyse the interaction between Road Safety Act demerit point provisions and the Transport Infrastructure Act heavy vehicle access restrictions.",
+    "expected_answer": "Section 68 of the Road Safety Act accumulates demerit points leading to licence suspension at 12 points within 3 years. The Transport Infrastructure Act Section 55 separately restricts heavy vehicle access based on vehicle mass and dimensions. A suspended driver is additionally prohibited from operating vehicles on restricted routes.",
+    "expected_entities": [
+      "Road Safety Act",
+      "Transport Infrastructure Act",
+      "Section 68",
+      "Section 55",
+      "demerit points",
+      "heavy vehicle"
+    ],
+    "expected_citations": [
+      "Road Safety Act 2024, Section 68(1)",
+      "Road Safety Act 2024, Section 68(3)",
+      "Transport Infrastructure Act 2024, Section 55(1)"
+    ],
+    "difficulty": "complex",
+    "category": "comparative",
+    "metadata": {
+      "legislation": "Road Safety Act 2024",
+      "topic": "demerit points and heavy vehicle interaction",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-039",
+    "question": "How does the Taxation Administration Act's information gathering power interact with legal professional privilege?",
+    "expected_answer": "Section 353-10 grants broad information gathering powers but Section 357-60 preserves legal professional privilege. The Criminal Code Section 155 independently protects privileged communications. Both Acts recognise the privilege but the Taxation Administration Act includes a carve-out for tax advice documents under Section 357-65.",
+    "expected_entities": [
+      "Taxation Administration Act",
+      "Criminal Code",
+      "Section 353-10",
+      "Section 357-60",
+      "Section 155",
+      "legal professional privilege"
+    ],
+    "expected_citations": [
+      "Taxation Administration Act 2024, Section 353-10(1)",
+      "Taxation Administration Act 2024, Section 357-60",
+      "Criminal Code 2024, Section 155"
+    ],
+    "difficulty": "complex",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "Taxation Administration Act 2024",
+      "topic": "privilege and tax investigation",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-040",
+    "question": "Compare dispute resolution mechanisms under the Family Law Act with those under the Workplace Health and Safety Act for work-family conflicts.",
+    "expected_answer": "The Family Law Act Section 60I requires family dispute resolution before court proceedings for parenting matters. The WHS Act Section 82 provides for issue resolution through HSRs and the regulator. Where workplace arrangements conflict with family court orders, the Family Law Act orders prevail but employers retain WHS obligations.",
+    "expected_entities": [
+      "Family Law Act",
+      "Workplace Health and Safety Act",
+      "Section 60I",
+      "Section 82",
+      "dispute resolution"
+    ],
+    "expected_citations": [
+      "Family Law Act 2024, Section 60I(1)",
+      "Workplace Health and Safety Act 2024, Section 82(1)"
+    ],
+    "difficulty": "complex",
+    "category": "comparative",
+    "metadata": {
+      "legislation": "Family Law Act 2024",
+      "topic": "dispute resolution comparison",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-041",
+    "question": "What are the cumulative compliance obligations for a construction company operating under multiple regulatory frameworks?",
+    "expected_answer": "A construction company must hold a building permit under BCR Part 3, maintain a WHS management system satisfying Section 19 duties and safe work method statements under Section 293, and obtain environmental authority under EPA Part 4 where relevant. Each regulator has independent inspection and enforcement powers creating overlapping obligations.",
+    "expected_entities": [
+      "Building and Construction Regulations",
+      "Workplace Health and Safety Act",
+      "Environmental Protection Act",
+      "Section 19",
+      "Section 293",
+      "Part 3",
+      "Part 4"
+    ],
+    "expected_citations": [
+      "Building and Construction Regulations 2024, Part 3",
+      "Workplace Health and Safety Act 2024, Section 19(1)",
+      "Workplace Health and Safety Act 2024, Section 293",
+      "Environmental Protection Act 2024, Part 4"
+    ],
+    "difficulty": "complex",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "Building and Construction Regulations 2024",
+      "topic": "cumulative compliance",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-042",
+    "question": "Compare the whistleblower protections available under the Corporations Act with those under the Taxation Administration Act.",
+    "expected_answer": "Part 9.4AAA of the Corporations Act provides protections for disclosures about corporate misconduct to ASIC, APRA, or eligible recipients. The Taxation Administration Act Division 389 provides parallel protections for disclosures about tax affairs. Both offer immunity from civil and criminal liability but the Corporations Act additionally allows anonymous disclosures.",
+    "expected_entities": [
+      "Corporations Act",
+      "Taxation Administration Act",
+      "Part 9.4AAA",
+      "Division 389",
+      "whistleblower"
+    ],
+    "expected_citations": [
+      "Corporations Act 2024, Part 9.4AAA, Section 1317AA",
+      "Taxation Administration Act 2024, Division 389, Section 389-5"
+    ],
+    "difficulty": "complex",
+    "category": "comparative",
+    "metadata": {
+      "legislation": "Corporations Act 2024",
+      "topic": "whistleblower protections comparison",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-043",
+    "question": "How does mandatory reporting under the Criminal Code interact with medical confidentiality under the Privacy Act?",
+    "expected_answer": "Section 67 of the Criminal Code requires mandatory reporting of child abuse. APP 6 of the Privacy Act restricts disclosure of health information but Section 16A(1)(c) permits disclosure required by law. Healthcare providers must report because the Criminal Code requirement satisfies the Privacy Act legal authorisation exception.",
+    "expected_entities": [
+      "Criminal Code",
+      "Privacy Act",
+      "Section 67",
+      "APP 6",
+      "Section 16A",
+      "mandatory reporting"
+    ],
+    "expected_citations": [
+      "Criminal Code 2024, Section 67(1)",
+      "Privacy Act 2024, Section 16A(1)(c)",
+      "Privacy Act 2024, Schedule 1, APP 6"
+    ],
+    "difficulty": "complex",
+    "category": "comparative",
+    "metadata": {
+      "legislation": "Criminal Code 2024",
+      "topic": "mandatory reporting vs privacy",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-044",
+    "question": "What are the overlapping director obligations under the Corporations Act, WHS Act, and Environmental Protection Act?",
+    "expected_answer": "Directors face duties of care under Corporations Act Section 180, officer due diligence under WHS Act Section 27, and executive officer liability under EPA Section 170. A single incident causing worker injury and environmental harm could trigger liability under all three statutes simultaneously with cumulative penalties.",
+    "expected_entities": [
+      "Corporations Act",
+      "Workplace Health and Safety Act",
+      "Environmental Protection Act",
+      "Section 180",
+      "Section 27",
+      "Section 170"
+    ],
+    "expected_citations": [
+      "Corporations Act 2024, Section 180(1)",
+      "Workplace Health and Safety Act 2024, Section 27(1)",
+      "Environmental Protection Act 2024, Section 170"
+    ],
+    "difficulty": "complex",
+    "category": "comparative",
+    "metadata": {
+      "legislation": "Corporations Act 2024",
+      "topic": "overlapping director obligations",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-045",
+    "question": "Analyse the procedural steps to challenge both a road safety infringement and a transport infrastructure access decision simultaneously.",
+    "expected_answer": "A Road Safety Act infringement under Section 72 can be contested by electing court hearing within 28 days. A Transport Infrastructure Act access decision under Section 58 is reviewable by tribunal within 21 days. Both reviews operate independently but may involve overlapping factual issues regarding the vehicle's authorised route.",
+    "expected_entities": [
+      "Road Safety Act",
+      "Transport Infrastructure Act",
+      "Section 72",
+      "Section 58"
+    ],
+    "expected_citations": [
+      "Road Safety Act 2024, Section 72(1)",
+      "Transport Infrastructure Act 2024, Section 58(1)"
+    ],
+    "difficulty": "complex",
+    "category": "procedural",
+    "metadata": {
+      "legislation": "Road Safety Act 2024",
+      "topic": "dual challenge procedure",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-046",
+    "question": "What privacy obligations arise when WHS surveillance data is sought for Family Law proceedings?",
+    "expected_answer": "Workplace surveillance for WHS purposes must comply with APP 3 collection limitations and APP 6 use restrictions. Section 69ZN of the Family Law Act allows subpoena of relevant documents, but the Privacy Act exemption under Section 6.2(e) only applies to court-ordered disclosure. The employer must await a formal order before releasing surveillance data.",
+    "expected_entities": [
+      "Workplace Health and Safety Act",
+      "Privacy Act",
+      "Family Law Act",
+      "APP 3",
+      "APP 6",
+      "Section 69ZN"
+    ],
+    "expected_citations": [
+      "Privacy Act 2024, Schedule 1, APP 3",
+      "Privacy Act 2024, Schedule 1, APP 6",
+      "Family Law Act 2024, Section 69ZN",
+      "Privacy Act 2024, Section 6.2(e)"
+    ],
+    "difficulty": "complex",
+    "category": "procedural",
+    "metadata": {
+      "legislation": "Privacy Act 2024",
+      "topic": "surveillance data in family proceedings",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-047",
+    "question": "How do the Building and Construction regulations address accessibility compliance for public buildings?",
+    "expected_answer": "Part 8 Division 1 requires all new public buildings to comply with the Access Code (Regulation 250). The Access Code mandates wheelchair accessibility, tactile indicators, and hearing augmentation. Non-compliance under Regulation 255 exposes the builder to penalties of up to 500 penalty units and mandatory rectification within 90 days.",
+    "expected_entities": [
+      "Building and Construction Regulations",
+      "Part 8",
+      "Regulation 250",
+      "Regulation 255",
+      "Access Code"
+    ],
+    "expected_citations": [
+      "Building and Construction Regulations 2024, Part 8, Regulation 250",
+      "Building and Construction Regulations 2024, Regulation 255"
+    ],
+    "difficulty": "moderate",
+    "category": "procedural",
+    "metadata": {
+      "legislation": "Building and Construction Regulations 2024",
+      "topic": "accessibility compliance",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-048",
+    "question": "What are the implications of voluntary administration under the Corporations Act for ongoing WHS prosecutions?",
+    "expected_answer": "Section 440D stays enforcement proceedings against a company in voluntary administration without leave. However, WHS Act Section 232 provides that proceedings for Category 1 offences involving reckless conduct causing death may continue regardless of administration, as prosecution is not a provable debt under Section 553.",
+    "expected_entities": [
+      "Corporations Act",
+      "Workplace Health and Safety Act",
+      "Section 440D",
+      "Section 232",
+      "voluntary administration"
+    ],
+    "expected_citations": [
+      "Corporations Act 2024, Section 440D(1)",
+      "Workplace Health and Safety Act 2024, Section 232",
+      "Corporations Act 2024, Section 553"
+    ],
+    "difficulty": "complex",
+    "category": "comparative",
+    "metadata": {
+      "legislation": "Corporations Act 2024",
+      "topic": "administration and WHS prosecution",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-049",
+    "question": "Compare evidentiary standards for proving intent under the Criminal Code with civil penalty standards under the Corporations Act.",
+    "expected_answer": "The Criminal Code requires proof of physical and fault elements beyond reasonable doubt (Section 3.1). For civil penalty proceedings under Corporations Act Section 1317L, the court applies balance of probabilities but with the Briginshaw principle requiring evidence commensurate with the seriousness of the allegation.",
+    "expected_entities": [
+      "Criminal Code",
+      "Corporations Act",
+      "Section 3.1",
+      "Section 1317L",
+      "standard of proof"
+    ],
+    "expected_citations": [
+      "Criminal Code 2024, Section 3.1(1)",
+      "Corporations Act 2024, Section 1317L"
+    ],
+    "difficulty": "moderate",
+    "category": "comparative",
+    "metadata": {
+      "legislation": "Criminal Code 2024",
+      "topic": "evidentiary standards comparison",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-050",
+    "question": "How does the Environmental Protection Act regulate mine site rehabilitation and how does the Taxation Administration Act affect financial assurance?",
+    "expected_answer": "Section 285 requires progressive rehabilitation of disturbed land and lodgement of financial assurance. The Taxation Administration Act Section 40-1080 allows deductions for rehabilitation expenditure, and Division 28 may impose GST on financial assurance refunds, creating complex interaction between environmental and tax obligations.",
+    "expected_entities": [
+      "Environmental Protection Act",
+      "Taxation Administration Act",
+      "Section 285",
+      "Section 40-1080",
+      "rehabilitation",
+      "financial assurance"
+    ],
+    "expected_citations": [
+      "Environmental Protection Act 2024, Section 285(1)",
+      "Taxation Administration Act 2024, Section 40-1080"
+    ],
+    "difficulty": "moderate",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "Environmental Protection Act 2024",
+      "topic": "mine rehabilitation and tax",
+      "requires_multi_hop": true
+    }
+  },
+  {
+    "id": "golden-051",
+    "question": "What are the immigration requirements for skilled workers under the Migration Act?",
+    "expected_answer": "This question falls outside the scope of the legislation corpus. The Migration Act is not included in the current document collection. The system should indicate that no relevant documents were found and suggest consulting the Department of Home Affairs directly.",
+    "expected_entities": [
+      "Migration Act",
+      "skilled workers",
+      "immigration"
+    ],
+    "expected_citations": [],
+    "difficulty": "simple",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Migration Act 1958",
+      "topic": "immigration requirements",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-052",
+    "question": "What regulations govern cryptocurrency exchanges in Australia under the ASIC Act?",
+    "expected_answer": "This question relates to financial services regulation under the ASIC Act which is not part of the current legislation corpus. The system should indicate insufficient coverage and direct the user to ASIC's digital asset guidance materials.",
+    "expected_entities": [
+      "ASIC Act",
+      "cryptocurrency",
+      "digital assets"
+    ],
+    "expected_citations": [],
+    "difficulty": "moderate",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "ASIC Act 2001",
+      "topic": "cryptocurrency regulation",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-053",
+    "question": "What are the consumer guarantee provisions under the Australian Consumer Law?",
+    "expected_answer": "The Australian Consumer Law is not included in the current document collection. The system should indicate that no relevant legislation documents are available and suggest consulting the ACCC website.",
+    "expected_entities": [
+      "Australian Consumer Law",
+      "consumer guarantees",
+      "Competition and Consumer Act"
+    ],
+    "expected_citations": [],
+    "difficulty": "simple",
+    "category": "factual",
+    "metadata": {
+      "legislation": "Competition and Consumer Act 2010",
+      "topic": "consumer guarantees",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-054",
+    "question": "What intellectual property protections exist for software under the Patents Act?",
+    "expected_answer": "The Patents Act is not included in the current legislation corpus. The system should indicate no relevant documents were found for IP and patent law queries and suggest consulting IP Australia resources.",
+    "expected_entities": [
+      "Patents Act",
+      "intellectual property",
+      "software patents"
+    ],
+    "expected_citations": [],
+    "difficulty": "moderate",
+    "category": "analytical",
+    "metadata": {
+      "legislation": "Patents Act 1990",
+      "topic": "software patents",
+      "requires_multi_hop": false
+    }
+  },
+  {
+    "id": "golden-055",
+    "question": "What are the requirements for obtaining a firearms licence under state firearms legislation?",
+    "expected_answer": "Firearms legislation is not included in the current document collection. The system should indicate no relevant documents were found and direct the user to their relevant state or territory firearms registry for licensing requirements.",
+    "expected_entities": [
+      "firearms licence",
+      "weapons legislation"
+    ],
+    "expected_citations": [],
+    "difficulty": "simple",
+    "category": "procedural",
+    "metadata": {
+      "legislation": "Firearms Act 1996",
+      "topic": "firearms licensing",
+      "requires_multi_hop": false
+    }
+  }
+]
